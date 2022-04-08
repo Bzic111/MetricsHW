@@ -23,7 +23,11 @@ namespace MetricsManagerHW.Controllers
         #endregion
 
         #region Read
-
+        [HttpGet("show/all")]
+        public IActionResult GetAllAgents()
+        {
+            return Ok();
+        }
         #endregion
 
         #region Update
@@ -33,6 +37,7 @@ namespace MetricsManagerHW.Controllers
         {
             return Ok();
         }
+
         [HttpPut("disable/{agentId}")]
         public IActionResult DisableAgentById([FromRoute] int agentId)
         {
