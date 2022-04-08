@@ -8,11 +8,26 @@ namespace MetricsManagerHW.Controllers
     [ApiController]
     public class AgentsController : ControllerBase
     {
+        public AgentsController()
+        {
+
+        }
+        #region Create
+
         [HttpPost("register")]
         public IActionResult RegisterAgent([FromBody] AgentInfo agentInfo)
         {
             return Ok();
         }
+
+        #endregion
+
+        #region Read
+
+        #endregion
+
+        #region Update
+
         [HttpPut("enable/{agentId}")]
         public IActionResult EnableAgentById([FromRoute] int agentId)
         {
@@ -23,5 +38,13 @@ namespace MetricsManagerHW.Controllers
         {
             return Ok();
         }
+
+        #endregion
+
+        #region Delete
+
+        #endregion
+
+
     }
 }
