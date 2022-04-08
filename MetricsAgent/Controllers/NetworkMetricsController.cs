@@ -15,7 +15,7 @@ namespace MetricsAgent.Controllers
         #region Read
 
         [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetNetworkMetricsFromAgent([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+        public IActionResult GetNetworkMetrics([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
             return Ok();
         }

@@ -20,7 +20,7 @@ public class CPUMetricsController : ControllerBase
     }
 
     [HttpGet("from/{fromTime}/to/{toTime}/percentiles/{percentile}")]
-    public IActionResult GetCPUMetricsPercentile([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
+    public IActionResult GetCPUMetricsPercentile([FromRoute] int procentile, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
     {
         return Ok();
     }
