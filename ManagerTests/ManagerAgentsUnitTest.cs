@@ -36,4 +36,11 @@ public class ManagerAgentsUnitTest
         var result = _controller.DisableAgentById(1);
         _ = Assert.IsAssignableFrom<IActionResult>(result);
     }
+
+    [Fact]
+    public void Test_GetAllAgents()
+    {
+        var result = _controller.GetAllAgents();
+        _ = Assert.IsAssignableFrom<IActionResult>(result);
+    }
 }
