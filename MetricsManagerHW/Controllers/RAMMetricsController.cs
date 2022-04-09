@@ -25,6 +25,6 @@ public class RAMMetricsController : ControllerBase
     {
         return Ok();
     }
-    
+
     #endregion
 }

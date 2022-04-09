@@ -31,7 +31,7 @@ public class CPUMetricsController : ControllerBase
     }
 
     [HttpGet("cluster/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]
-    public IActionResult GetCPUMetricsPercentileFromAllCluster([FromRoute] int percentile, 
+    public IActionResult GetCPUMetricsPercentileFromAllCluster([FromRoute] int percentile,
                                                                [FromRoute] TimeSpan fromTime,
                                                                [FromRoute] TimeSpan toTime)
     {

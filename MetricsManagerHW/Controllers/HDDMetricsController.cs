@@ -19,7 +19,7 @@ public class HDDMetricsController : ControllerBase
     {
         return Ok();
     }
-    
+
     [HttpGet("cluster/left/from/{fromTime}/to/{toTime}")]
     public IActionResult GetHDDMetricsFromAllCluster([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
     {
