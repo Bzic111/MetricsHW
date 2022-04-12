@@ -2,10 +2,10 @@
 public class AgentInfo
 {
     public int AgentId { get; set; }
-    public Uri AgentAddress { get; set; }
-    public AgentInfo(int id, Uri uri)
+    public string AgentAddress { get; set; }
+    public AgentInfo(int id, string addres)
     {
         AgentId = id;
-        AgentAddress = uri;
+        AgentAddress = addres;
     }
 }
