@@ -7,9 +7,10 @@ namespace MetricsManagerHW.Controllers
     [ApiController]
     public class NetworkMetricsController : ControllerBase
     {
-        public NetworkMetricsController()
+        private readonly ILogger<NetworkMetricsController> _logger;
+        public NetworkMetricsController(ILogger<NetworkMetricsController> logger)
         {
-
+            _logger = logger;
         }
 
         #region Read
@@ -17,12 +18,14 @@ namespace MetricsManagerHW.Controllers
         [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
         public IActionResult GetNetworkMetricsFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
+            _logger.LogInformation($"Get Network metrics from agent {agentId}");
             return Ok();
         }
 
         [HttpGet("cluster/from/{fromTime}/to/{toTime}")]
         public IActionResult GetNetworkMetricsFromAllCluster([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
+            _logger.LogInformation($"Get Network metrics from cluster");
             return Ok();
         }
 

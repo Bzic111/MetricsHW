@@ -7,9 +7,10 @@ namespace MetricsAgent.Controllers;
 [ApiController]
 public class HDDMetricsController : ControllerBase
 {
-    public HDDMetricsController()
+    private readonly ILogger<HDDMetricsController> _logger;
+    public HDDMetricsController(ILogger<HDDMetricsController> logger)
     {
-
+        _logger = logger;
     }
 
     #region Read
@@ -17,6 +18,7 @@ public class HDDMetricsController : ControllerBase
     [HttpGet("left/from/{fromTime}/to/{toTime}")]
     public IActionResult GetHDDMetrics([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
     {
+        _logger.LogInformation($"Get HDD metrics by period from {fromTime} to {toTime}");
         return Ok();
     }
 

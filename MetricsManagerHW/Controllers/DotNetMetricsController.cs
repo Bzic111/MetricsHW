@@ -7,9 +7,10 @@ namespace MetricsManagerHW.Controllers
     [ApiController]
     public class DotNetMetricsController : ControllerBase
     {
-        public DotNetMetricsController()
+        private readonly ILogger<DotNetMetricsController> _logger;
+        public DotNetMetricsController(ILogger<DotNetMetricsController> logger)
         {
-
+            _logger = logger;
         }
 
         #region Read
@@ -17,12 +18,14 @@ namespace MetricsManagerHW.Controllers
         [HttpGet("agent/{agentId}/errors-count/from/{fromTime}/to/{toTime}")]
         public IActionResult GetDotNetMetricsFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
+            _logger.LogInformation($"Get DotNet metrics from agent {agentId}");
             return Ok();
         }
 
         [HttpGet("cluster/errors-count/from/{fromTime}/to/{toTime}")]
         public IActionResult GetDotNetMetricsFromAllCluster([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
+            _logger.LogInformation($"Get DotNet metrics from cluster");
             return Ok();
         }
 

@@ -7,9 +7,10 @@ namespace MetricsAgent.Controllers
     [ApiController]
     public class DotNetMetricsController : ControllerBase
     {
-        public DotNetMetricsController()
+        private readonly ILogger<DotNetMetricsController> _logger;
+        public DotNetMetricsController(ILogger<DotNetMetricsController> logger)
         {
-
+            _logger = logger;
         }
 
         #region Read
@@ -17,6 +18,7 @@ namespace MetricsAgent.Controllers
         [HttpGet("errors-count/from/{fromTime}/to/{toTime}")]
         public IActionResult GetDotNetMetrics([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
+            _logger.LogInformation($"Get DotNet metrics by period from {fromTime} to {toTime}");
             return Ok();
         }
 

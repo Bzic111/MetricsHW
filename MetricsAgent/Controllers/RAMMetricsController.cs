@@ -7,9 +7,10 @@ namespace MetricsAgent.Controllers;
 [ApiController]
 public class RAMMetricsController : ControllerBase
 {
-    public RAMMetricsController()
+    private readonly ILogger<RAMMetricsController> _logger;
+    public RAMMetricsController(ILogger<RAMMetricsController> logger)
     {
-
+        _logger = logger;
     }
 
     #region Read
@@ -17,6 +18,7 @@ public class RAMMetricsController : ControllerBase
     [HttpGet("available/from/{fromTime}/to/{toTime}")]
     public IActionResult GetRAMMetrics([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
     {
+        _logger.LogInformation($"Get RAM metrics by period from {fromTime} to {toTime}");
         return Ok();
     }
 

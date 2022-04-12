@@ -7,8 +7,10 @@ namespace MetricsManagerHW.Controllers;
 [ApiController]
 public class CPUMetricsController : ControllerBase
 {
-    public CPUMetricsController()
+    private readonly ILogger<CPUMetricsController> _logger;
+    public CPUMetricsController(ILogger<CPUMetricsController> logger)
     {
+        _logger = logger;
     }
 
     #region Read
@@ -18,6 +20,7 @@ public class CPUMetricsController : ControllerBase
                                                 [FromRoute] TimeSpan fromTime,
                                                 [FromRoute] TimeSpan toTime)
     {
+        _logger.LogInformation($"Get CPU metrics from agent {agentId}");
         return Ok();
     }
 
@@ -27,6 +30,7 @@ public class CPUMetricsController : ControllerBase
                                                           [FromRoute] TimeSpan fromTime,
                                                           [FromRoute] TimeSpan toTime)
     {
+        _logger.LogInformation($"Get CPU metrics percentile {percentile} from agent {agentId}");
         return Ok();
     }
 
@@ -35,6 +39,7 @@ public class CPUMetricsController : ControllerBase
                                                                [FromRoute] TimeSpan fromTime,
                                                                [FromRoute] TimeSpan toTime)
     {
+        _logger.LogInformation($"Get CPU metrics percentiles {percentile} from cluster");
         return Ok();
     }
 
@@ -42,6 +47,7 @@ public class CPUMetricsController : ControllerBase
     public IActionResult GetCPUMetricsFromAllCluster([FromRoute] TimeSpan fromTime,
                                                      [FromRoute] TimeSpan toTime)
     {
+        _logger.LogInformation($"Get CPU metrics from cluster");
         return Ok();
     }
 
