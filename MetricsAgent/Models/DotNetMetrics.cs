@@ -1,6 +1,7 @@
-﻿namespace MetricsAgent.Models;
-
-public class DotNetMetrics : Metric
+﻿namespace MetricsAgent.Models
 {
+    public class DotNetMetrics : Metric
+    {
 
+    }
 }

@@ -2,26 +2,34 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Xunit;
+using Moq;
+using Microsoft.Extensions.Logging;
+using MetricsAgent.Repositoryes;
 
-namespace AgentTests;
-
-public class AgentHDDMetricsUnitTest
+namespace AgentTests
 {
-    private HDDMetricsController _controller;
-    private TimeSpan _from;
-    private TimeSpan _to;
-
-    public AgentHDDMetricsUnitTest()
+    public class AgentHDDMetricsUnitTest
     {
-        _controller = new HDDMetricsController();
-        _from = TimeSpan.FromSeconds(1);
-        _to = TimeSpan.FromSeconds(10);
-    }
+        private HDDMetricsController _controller;
+        private DateTime _from;
+        private DateTime _to;
+        private Mock<HDDMetricsRepository> _mock;
+        private Mock<ILogger<HDDMetricsController>> _mockLogger;
 
-    [Fact]
-    public void Test_GetHDDMetrics()
-    {
-        var result = _controller.GetHDDMetrics(_from, _to);
-        _ = Assert.IsAssignableFrom<IActionResult>(result);
+        public AgentHDDMetricsUnitTest()
+        {
+            _mock = new();
+            _mockLogger = new();
+            _controller = new(_mockLogger.Object, _mock.Object);
+            _from = DateTime.Now.AddDays(-1);
+            _to = DateTime.Now.AddDays(1);
+        }
+
+        [Fact]
+        public void Test_GetHDDMetrics()
+        {
+            var result = _controller.GetHDDMetrics(_from, _to);
+            _ = Assert.IsAssignableFrom<IActionResult>(result);
+        }
     }
 }

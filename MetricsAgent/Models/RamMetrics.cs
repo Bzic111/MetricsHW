@@ -1,6 +1,7 @@
-﻿namespace MetricsAgent.Models;
-
-public class RamMetrics : Metric
+﻿namespace MetricsAgent.Models
 {
+    public class RamMetrics : Metric
+    {
 
+    }
 }

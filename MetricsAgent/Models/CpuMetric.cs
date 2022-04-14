@@ -1,5 +1,7 @@
-﻿namespace MetricsAgent.Models;
-public class CpuMetric : Metric
+﻿namespace MetricsAgent.Models
 {
+    public class CpuMetric : Metric
+    {
 
+    }
 }

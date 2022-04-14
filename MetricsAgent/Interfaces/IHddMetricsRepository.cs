@@ -1,6 +1,8 @@
-﻿using MetricsAgent.Models;
-namespace MetricsAgent.Interfaces;
-
-public interface IHddMetricsRepository : IRepository<HddMetrics>
+﻿using MetricsAgent.DTO;
+using MetricsAgent.Models;
+namespace MetricsAgent.Interfaces
 {
+    public interface IHddMetricsRepository : IRepository<HddMetrics>
+    {
+    }
 }

@@ -2,26 +2,34 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Xunit;
+using Moq;
+using Microsoft.Extensions.Logging;
+using MetricsAgent.Repositoryes;
 
-namespace AgentTests;
-
-public class AgentDotNetMetricsUnitTest
+namespace AgentTests
 {
-    private DotNetMetricsController _controller;
-    private TimeSpan _from;
-    private TimeSpan _to;
-
-    public AgentDotNetMetricsUnitTest()
+    public class AgentDotNetMetricsUnitTest
     {
-        _controller = new DotNetMetricsController();
-        _from = TimeSpan.FromSeconds(1);
-        _to = TimeSpan.FromSeconds(10);
-    }
+        private DotNetMetricsController _controller;
+        private DateTime _from;
+        private DateTime _to; 
+        private Mock<DotNetMetricsRepository> _mock;
+        private Mock<ILogger<DotNetMetricsController>> _mockLogger;
 
-    [Fact]
-    public void Test_GetDotNetMetrics()
-    {
-        var result = _controller.GetDotNetMetrics(_from, _to);
-        _ = Assert.IsAssignableFrom<IActionResult>(result);
+        public AgentDotNetMetricsUnitTest()
+        {
+            _mock = new();
+            _mockLogger = new();
+            _controller = new (_mockLogger.Object,_mock.Object);
+            _from = DateTime.Now.AddDays(-1);
+            _to = DateTime.Now.AddDays(1);
+        }
+
+        [Fact]
+        public void Test_GetDotNetMetrics()
+        {
+            var result = _controller.GetDotNetMetrics(_from, _to);
+            _ = Assert.IsAssignableFrom<IActionResult>(result);
+        }
     }
 }

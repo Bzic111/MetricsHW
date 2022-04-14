@@ -1,6 +1,7 @@
-﻿namespace MetricsAgent.Models;
-
-public class HddMetrics : Metric
+﻿namespace MetricsAgent.Models
 {
+    public class HddMetrics : Metric
+    {
 
+    }
 }

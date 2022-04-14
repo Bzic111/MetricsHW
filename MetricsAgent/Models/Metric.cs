@@ -1,8 +1,9 @@
-﻿namespace MetricsAgent.Models;
-
-public abstract class Metric
+﻿namespace MetricsAgent.Models
 {
-    public int Id { get; set; }
-    public int Value { get; set; }
-    public DateTime Time { get; set; }
+    public abstract class Metric
+    {
+        public int Id { get; set; }
+        public int Value { get; set; }
+        public DateTime Time { get; set; }
+    }
 }

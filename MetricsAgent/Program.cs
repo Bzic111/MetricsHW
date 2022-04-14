@@ -6,6 +6,7 @@ using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
+using MetricsAgent.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
