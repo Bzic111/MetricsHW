@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MetricsAgent.Repositoryes;
+﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
+using MetricsAgent.Request;
 
 namespace MetricsAgent.Controllers
 {
@@ -11,9 +10,9 @@ namespace MetricsAgent.Controllers
     public class DotNetMetricsController : ControllerBase
     {
         private readonly ILogger<DotNetMetricsController> _logger;
-        private readonly DotNetMetricsRepository _repository;
+        private readonly IDotNetMetricsRepository _repository;
 
-        public DotNetMetricsController(ILogger<DotNetMetricsController> logger,DotNetMetricsRepository repository)
+        public DotNetMetricsController(ILogger<DotNetMetricsController> logger, IDotNetMetricsRepository repository)
         {
             _logger = logger;
             _repository = repository;
@@ -22,10 +21,10 @@ namespace MetricsAgent.Controllers
         #region Create
 
         [HttpPost("new/datetime/{date}/value/{value}")]
-        public IActionResult CreateMetric([FromRoute] DateTime date, [FromRoute] int value)
+        public IActionResult CreateMetric([FromBody] DotNetMetricCreateRequest req)
         {
-            _logger.LogInformation($"Create new DotNet metric with value = {value}, date = {date}");
-            _repository.Create(new() { Time = date, Value = value });
+            _logger.LogInformation($"Create new DotNet metric with value = {req.Value}, date = {req.Date}");
+            _repository.Create(new() { Id = 0, Time = req.Date, Value = req.Value });
             return Ok();
         }
 
@@ -38,7 +37,7 @@ namespace MetricsAgent.Controllers
         {
             _logger.LogInformation($"Get DotNet metrics by period from {fromTime} to {toTime}");
             var result = _repository.GetByTimeFilter(fromTime, toTime);
-            return Ok();
+            return Ok(result);
         }
 
         [HttpGet("all")]

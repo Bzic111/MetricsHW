@@ -1,11 +1,10 @@
-﻿using MetricsAgent.DTO;
-using MetricsAgent.Interfaces;
+﻿using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
 using System.Data.SQLite;
 
 namespace MetricsAgent.Repositoryes
 {
-    public class HDDMetricsRepository : IRepository<HddMetrics>
+    public class HDDMetricsRepository : IHddMetricsRepository
     {
         private readonly string _connectionString;
         public HDDMetricsRepository(IConfiguration configuration)
@@ -32,7 +31,7 @@ namespace MetricsAgent.Repositoryes
 
         #region Read
 
-        public IList<HddMetrics> GetAll()
+        public List<HddMetrics> GetAll()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -79,7 +78,7 @@ namespace MetricsAgent.Repositoryes
             }
         }
 
-        public IList<HddMetrics> GetByTimeFilter(DateTime from, DateTime to)
+        public List<HddMetrics> GetByTimeFilter(DateTime from, DateTime to)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {

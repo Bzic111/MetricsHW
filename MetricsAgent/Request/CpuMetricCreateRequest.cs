@@ -1,8 +1,6 @@
 ﻿namespace MetricsAgent.Request;
 
-public class CpuMetricCreateRequest
+public class CpuMetricCreateRequest : MetricsAgentRequest
 {
-    public DateTime Date { get; set; }
-    public int Value { get; set; }
+    
 }
-

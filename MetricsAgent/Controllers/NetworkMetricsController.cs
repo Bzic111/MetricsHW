@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MetricsAgent.Repositoryes;
+﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
 
@@ -11,9 +9,9 @@ namespace MetricsAgent.Controllers
     public class NetworkMetricsController : ControllerBase
     {
         private readonly ILogger<NetworkMetricsController> _logger;
-        private readonly NetworkMetricsRepository _repository;
+        private readonly INetworkMetricsRepository _repository;
 
-        public NetworkMetricsController(ILogger<NetworkMetricsController> logger, NetworkMetricsRepository repository)
+        public NetworkMetricsController(ILogger<NetworkMetricsController> logger, INetworkMetricsRepository repository)
         {
             _logger = logger;
             _repository = repository;

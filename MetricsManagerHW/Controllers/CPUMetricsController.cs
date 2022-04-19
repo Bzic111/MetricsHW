@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MetricsManagerHW.Controllers
 {
@@ -8,9 +7,12 @@ namespace MetricsManagerHW.Controllers
     public class CPUMetricsController : ControllerBase
     {
         private readonly ILogger<CPUMetricsController> _logger;
-        public CPUMetricsController(ILogger<CPUMetricsController> logger)
+        //private readonly IHttpClientFactory _clientFactory;
+
+        public CPUMetricsController(ILogger<CPUMetricsController> logger, IHttpClientFactory factory)
         {
             _logger = logger;
+            //_clientFactory = factory;
         }
 
         #region Read
@@ -21,7 +23,7 @@ namespace MetricsManagerHW.Controllers
                                                     [FromRoute] TimeSpan toTime)
         {
             _logger.LogInformation($"Get CPU metrics from agent {agentId}");
-            return Ok();
+            return Ok();            
         }
 
         [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]

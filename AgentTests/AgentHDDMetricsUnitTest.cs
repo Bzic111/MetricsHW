@@ -1,10 +1,11 @@
 ﻿using MetricsAgent.Controllers;
-using Microsoft.AspNetCore.Mvc;
+using MetricsAgent.Interfaces;
+using MetricsAgent.Models;
 using System;
 using Xunit;
 using Moq;
 using Microsoft.Extensions.Logging;
-using MetricsAgent.Repositoryes;
+using System.Collections.Generic;
 
 namespace AgentTests
 {
@@ -13,23 +14,71 @@ namespace AgentTests
         private HDDMetricsController _controller;
         private DateTime _from;
         private DateTime _to;
-        private Mock<HDDMetricsRepository> _mock;
+        private Mock<IHddMetricsRepository> _mockRepository;
         private Mock<ILogger<HDDMetricsController>> _mockLogger;
+        private List<HddMetrics> _responseList;
 
         public AgentHDDMetricsUnitTest()
         {
-            _mock = new();
+            _mockRepository = new();
             _mockLogger = new();
-            _controller = new(_mockLogger.Object, _mock.Object);
+            _controller = new(_mockLogger.Object, _mockRepository.Object);
             _from = DateTime.Now.AddDays(-1);
             _to = DateTime.Now.AddDays(1);
+            _responseList = new List<HddMetrics>()
+            {
+                new (){ Id = 1,Value = 50,Time = DateTime.Now},
+                new (){ Id = 2,Value = 51,Time = DateTime.Now},
+                new (){ Id = 3,Value = 52,Time = DateTime.Now}
+            };
         }
 
+        // CreateMetric
+        [Fact]
+        public void Test_CreateMetric()
+        {
+            _mockRepository.Setup(repository => repository.Create(It.IsAny<HddMetrics>())).Verifiable();
+            _mockRepository.Verify(repo => repo.Create(It.IsAny<HddMetrics>()), Times.AtMostOnce());
+        }
+
+        // GetHDDMetrics
         [Fact]
         public void Test_GetHDDMetrics()
         {
-            var result = _controller.GetHDDMetrics(_from, _to);
-            _ = Assert.IsAssignableFrom<IActionResult>(result);
+            _mockRepository.Setup(repo=>repo.GetByTimeFilter(_from, _to)).Verifiable();
+            _mockRepository.Verify(repo => repo.GetByTimeFilter(_from, _to), Times.AtMostOnce());
+        }
+
+        // GetAllHDDMetrics
+        [Fact]
+        public void Test_GetAllHDDMetrics()
+        {
+            _mockRepository.Setup(repo => repo.GetAll()).Returns(_responseList);
+            _mockRepository.Verify(repo => repo.GetAll(), Times.AtMostOnce());
+        }
+
+        // GetHDDMetricById
+        [Fact]
+        public void Test_GetHDDMetricById()
+        {
+            _mockRepository.Setup(repo => repo.GetById(1)).Verifiable();
+            _mockRepository.Verify(repo => repo.GetById(1), Times.AtMostOnce());
+        }
+
+        // UpdateMetric
+        [Fact]
+        public void Test_UpdateMetric()
+        {
+            _mockRepository.Setup(repo => repo.Update(It.IsAny<HddMetrics>())).Verifiable();
+            _mockRepository.Verify(repo => repo.Update(It.IsAny<HddMetrics>()), Times.AtMostOnce());
+        }
+
+        // DeleteMetric
+        [Fact]
+        public void Test_DeleteMetric()
+        {
+            _mockRepository.Setup(r => r.Delete(1)).Verifiable();
+            _mockRepository.Verify(r => r.Delete(1), Times.AtMostOnce());
         }
     }
 }

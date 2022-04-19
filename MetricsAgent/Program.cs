@@ -3,10 +3,6 @@ using NLog.Web;
 using System.Data.SQLite;
 using MetricsAgent.Repositoryes;
 using MetricsAgent.Interfaces;
-using MetricsAgent.Models;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using MetricsAgent.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -16,11 +12,11 @@ try
 {
     logger.Debug("init main");
     builder.Services.AddControllers();
-    builder.Services.AddScoped<IRepository<CpuMetric>,CPUMetricsRepository>();
-    builder.Services.AddScoped<IRepository<HddMetrics>,HDDMetricsRepository>();
-    builder.Services.AddScoped<IRepository<NetworkMetrics>,NetworkMetricsRepository>();
-    builder.Services.AddScoped<IRepository<DotNetMetrics>,DotNetMetricsRepository>();
-    builder.Services.AddScoped<IRepository<RamMetrics>,RAMMetricsRepository>();
+    builder.Services.AddScoped<ICPUMetricsRepository,CPUMetricsRepository>();
+    builder.Services.AddScoped<IDotNetMetricsRepository,DotNetMetricsRepository>();
+    builder.Services.AddScoped<IHddMetricsRepository,HDDMetricsRepository>();
+    builder.Services.AddScoped<INetworkMetricsRepository,NetworkMetricsRepository>();
+    builder.Services.AddScoped<IRamMetricsRepository,RAMMetricsRepository>();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 

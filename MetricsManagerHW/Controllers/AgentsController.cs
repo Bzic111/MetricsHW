@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MetricsManagerHW.ext;
-using NLog;
-using NLog.Web;
 
 namespace MetricsManagerHW.Controllers
 {

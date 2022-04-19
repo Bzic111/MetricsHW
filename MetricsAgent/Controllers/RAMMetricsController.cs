@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
-using MetricsAgent.Repositoryes;
 
 namespace MetricsAgent.Controllers
 {
@@ -11,9 +9,9 @@ namespace MetricsAgent.Controllers
     public class RAMMetricsController : ControllerBase
     {
         private readonly ILogger<RAMMetricsController> _logger;
-        private readonly RAMMetricsRepository _repository;
+        private readonly IRamMetricsRepository _repository;
 
-        public RAMMetricsController(ILogger<RAMMetricsController> logger, RAMMetricsRepository repository)
+        public RAMMetricsController(ILogger<RAMMetricsController> logger, IRamMetricsRepository repository)
         {
             _logger = logger;
             _repository = repository;

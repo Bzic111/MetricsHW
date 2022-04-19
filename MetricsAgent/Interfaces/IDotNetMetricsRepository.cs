@@ -1,7 +1,7 @@
 ﻿using MetricsAgent.Models;
-namespace MetricsAgent.Interfaces
+namespace MetricsAgent.Interfaces;
+
+public interface IDotNetMetricsRepository : IRepository<DotNetMetrics>
 {
-    public interface IDotNetMetricsRepository : IRepository<DotNetMetrics>
-    {
-    }
+
 }

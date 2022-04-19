@@ -1,11 +1,10 @@
-﻿using MetricsAgent.DTO;
-using MetricsAgent.Interfaces;
+﻿using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
 using System.Data.SQLite;
 
 namespace MetricsAgent.Repositoryes
 {
-    public class RAMMetricsRepository : IRepository<RamMetrics>
+    public class RAMMetricsRepository : IRamMetricsRepository
     {
         private readonly string _connectionString;
 
@@ -33,7 +32,7 @@ namespace MetricsAgent.Repositoryes
 
         #region Read
 
-        public IList<RamMetrics> GetAll()
+        public List<RamMetrics> GetAll()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -80,7 +79,7 @@ namespace MetricsAgent.Repositoryes
             }
         }
 
-        public IList<RamMetrics> GetByTimeFilter(DateTime from, DateTime to)
+        public List<RamMetrics> GetByTimeFilter(DateTime from, DateTime to)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
