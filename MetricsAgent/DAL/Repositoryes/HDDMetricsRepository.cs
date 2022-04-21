@@ -12,7 +12,7 @@ namespace MetricsAgent.Repositoryes
         private readonly string _connectionString;
         private readonly IMapper _mapper;
         private readonly string _table;
-        public HDDMetricsRepository(IConfiguration configuration,IMapper mapper)
+        public HDDMetricsRepository(IConfiguration configuration, IMapper mapper)
         {
             _connectionString = configuration.GetConnectionString("SQLiteDB");
             _table = configuration.GetValue<string>($"Tables:{GetType().Name}");
@@ -27,7 +27,7 @@ namespace MetricsAgent.Repositoryes
             {
                 connection
                 .Execute(
-                    $"INSERT INTO {_table}(value, time) " +
+                    $"INSERT INTO {_table}(value, DateTime) " +
                     $"VALUES({item.Value}, \'{item.DateTime}\')");
             }
         }

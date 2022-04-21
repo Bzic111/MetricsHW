@@ -3,7 +3,6 @@ using System.Data;
 
 namespace MetricsAgent.DAL;
 
-
 public class DateTimeHandler : SqlMapper.TypeHandler<DateTime>
 {
     public override void SetValue(IDbDataParameter parameter, DateTime value)

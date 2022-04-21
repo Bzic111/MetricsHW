@@ -1,6 +1,4 @@
-﻿using MetricsAgent.Models;
-
-namespace MetricsAgent.Interfaces;
+﻿namespace MetricsAgent.Interfaces;
 
 public interface IRepository<T> where T : class
 {
@@ -10,13 +8,5 @@ public interface IRepository<T> where T : class
     List<T> GetAll();
     List<T> GetByTimeFilter(DateTime from, DateTime to);
     T GetById(int id);
-
-}
-
-public interface ICPUMetricsRepository : IRepository<CpuMetric>
-{
-    CpuMetric GetAllWithPercentile(double percentile);
-    CpuMetric GetByTimeFilterWithPercentile(double percentile, DateTime from, DateTime to);
-    //CpuMetric GetCurrent();
 
 }

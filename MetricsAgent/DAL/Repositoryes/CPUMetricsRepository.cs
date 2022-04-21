@@ -13,7 +13,7 @@ public class CPUMetricsRepository : ICPUMetricsRepository
     private readonly string _table; // = "cpumetrics";
     private readonly IMapper _mapper;
 
-    public CPUMetricsRepository(IConfiguration configuration,IMapper mapper)
+    public CPUMetricsRepository(IConfiguration configuration, IMapper mapper)
     {
         _connectionString = configuration.GetConnectionString("SQLiteDB");
         _table = configuration.GetValue<string>($"Tables:{GetType().Name}");
@@ -28,7 +28,7 @@ public class CPUMetricsRepository : ICPUMetricsRepository
         {
             connection
                 .Execute(
-                    $"INSERT INTO {_table}(value, time) " +
+                    $"INSERT INTO {_table}(value, DateTime) " +
                     $"VALUES({item.Value}, \'{item.DateTime}\')");
         }
     }
@@ -45,7 +45,7 @@ public class CPUMetricsRepository : ICPUMetricsRepository
                             .Query<CpuMetricDTO>(
                                 $"SELECT * " +
                                 $"FROM {_table}").ToList());
-            
+
         }
     }
 
@@ -73,27 +73,13 @@ public class CPUMetricsRepository : ICPUMetricsRepository
                 $"WHERE datetime >= '{fromStr}' " +
                 $"AND datetime <= '{toStr}'")
                 .ToList());
-            //var result = connection
-            //    .Query<CpuMetricDTO>(
-            //    $"SELECT Id, datetime, Value " +
-            //    $"FROM {_table} " +
-            //    $"WHERE datetime >= '{fromStr}' " +
-            //    $"AND datetime <= '{toStr}'")
-            //    .ToList();
-
-            //List<CpuMetric> answer = new();
-            //for (int i = 0; i < result.Count(); i++)
-            //    answer.Add(_mapper.Map<CpuMetric>(result[i]));
-
-            //return answer;
-            
         }
     }
 
-    public CpuMetric GetAllWithPercentile(double percentile) 
+    public CpuMetric GetAllWithPercentile(double percentile)
         => GetPercentile(percentile, GetAll());
 
-    public CpuMetric GetByTimeFilterWithPercentile(double percentile, DateTime from, DateTime to) 
+    public CpuMetric GetByTimeFilterWithPercentile(double percentile, DateTime from, DateTime to)
         => GetPercentile(percentile, GetByTimeFilter(from, to));
 
     #endregion

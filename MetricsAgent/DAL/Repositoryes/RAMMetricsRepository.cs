@@ -28,7 +28,7 @@ namespace MetricsAgent.Repositoryes
             {
                 connection
                 .Execute(
-                    $"INSERT INTO {_table}(value, time) " +
+                    $"INSERT INTO {_table}(value, DateTime) " +
                     $"VALUES({item.Value}, \'{item.DateTime}\')");
             }
         }
