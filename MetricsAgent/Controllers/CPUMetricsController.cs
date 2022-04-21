@@ -2,6 +2,13 @@
 using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
 using MetricsAgent.Request;
+using AutoMapper;
+using MetricsAgent.DTO;
+using System.Linq;
+using System.Data;
+using System.Data.SQLite;
+using MetricsAgent.DAL;
+using Dapper;
 
 namespace MetricsAgent.Controllers;
 
@@ -15,6 +22,7 @@ public class CPUMetricsController : ControllerBase
     {
         _logger = logger;
         _repository = repository;
+        SqlMapper.AddTypeHandler(new DateTimeHandler());
     }
 
     #region Create
@@ -23,7 +31,7 @@ public class CPUMetricsController : ControllerBase
     public IActionResult CreateMetric([FromBody] CpuMetricCreateRequest req)
     {
         _logger.LogInformation($"Create new CPU metric with value = {req.Value}, date = {req.Date}");
-        _repository.Create(new() { Id = 0, Time = req.Date, Value = req.Value });
+        _repository.Create(new() { Id = 0, DateTime = req.Date, Value = req.Value });
         return Ok();
     }
 
@@ -35,7 +43,8 @@ public class CPUMetricsController : ControllerBase
     public IActionResult GetAllCPUMetrics()
     {
         _logger.LogInformation($"Get all CPU metrics");
-        return Ok(_repository.GetAll());
+        var result = _repository.GetAll();
+        return Ok(result);
     }
 
     [HttpGet("id/{id}")]
@@ -71,7 +80,7 @@ public class CPUMetricsController : ControllerBase
     public IActionResult UpdateMetric([FromRoute] int id, [FromRoute] int value, [FromRoute] DateTime datetime)
     {
         _logger.LogInformation($"Update CPU metric id = {id} with value = {value}, date = {datetime}");
-        _repository.Update(new CpuMetric() { Id = id, Value = value, Time = datetime });
+        _repository.Update(new CpuMetric() { Id = id, Value = value, DateTime = datetime });
         return Ok();
     }
 

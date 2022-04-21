@@ -3,6 +3,7 @@ using NLog.Web;
 using System.Data.SQLite;
 using MetricsAgent.Repositoryes;
 using MetricsAgent.Interfaces;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -11,12 +12,18 @@ logger.Debug("InitMain");
 try
 {
     logger.Debug("init main");
+
+    var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new MapperProfile()));
+    var mapper = mapperConfiguration.CreateMapper();
+
     builder.Services.AddControllers();
-    builder.Services.AddScoped<ICPUMetricsRepository,CPUMetricsRepository>();
-    builder.Services.AddScoped<IDotNetMetricsRepository,DotNetMetricsRepository>();
-    builder.Services.AddScoped<IHddMetricsRepository,HDDMetricsRepository>();
-    builder.Services.AddScoped<INetworkMetricsRepository,NetworkMetricsRepository>();
-    builder.Services.AddScoped<IRamMetricsRepository,RAMMetricsRepository>();
+    builder.Services.AddScoped<ICPUMetricsRepository, CPUMetricsRepository>();
+    builder.Services.AddScoped<IDotNetMetricsRepository, DotNetMetricsRepository>();
+    builder.Services.AddScoped<IHddMetricsRepository, HDDMetricsRepository>();
+    builder.Services.AddScoped<INetworkMetricsRepository, NetworkMetricsRepository>();
+    builder.Services.AddScoped<IRamMetricsRepository, RAMMetricsRepository>();
+    builder.Services.AddSingleton(mapper);
+
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
@@ -27,7 +34,7 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    
+
     app.UseAuthorization();
 
     app.MapControllers();

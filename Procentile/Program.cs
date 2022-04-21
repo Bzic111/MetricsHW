@@ -22,13 +22,13 @@ foreach (var item in rayList)
     Console.Write($"{item} | ");
 }
 Console.WriteLine();
-                            //n = (P/100) x N
+//n = (P/100) x N
 
 double procentile = 90;             // P
 double rayCount = ray.Length;  // N
 double n = procentile / 100D * rayCount;
 Console.WriteLine($"{n}");
-    Console.WriteLine($"{procentile} = {rayList[(int)n]}");
+Console.WriteLine($"{procentile} = {rayList[(int)n]}");
 for (int i = 0; i < ray.Length; i++)
 {
     if (ray[i] > rayList[(int)n])

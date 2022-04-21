@@ -23,7 +23,7 @@ namespace MetricsManagerHW.Controllers
                                                     [FromRoute] TimeSpan toTime)
         {
             _logger.LogInformation($"Get CPU metrics from agent {agentId}");
-            return Ok();            
+            return Ok();
         }
 
         [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]

@@ -13,7 +13,7 @@ public class AgentDotNetMetricsUnitTest
 {
     private DotNetMetricsController _controller;
     private DateTime _from;
-    private DateTime _to; 
+    private DateTime _to;
     private Mock<IDotNetMetricsRepository> _mockRepository;
     private Mock<ILogger<DotNetMetricsController>> _mockLogger;
     private List<DotNetMetrics> _responseList;
@@ -44,7 +44,7 @@ public class AgentDotNetMetricsUnitTest
     //GetAllDotNetMetrics
     [Fact]
     public void Test_GetAllDotNetMetrics()
-    {            
+    {
         _mockRepository.Setup(repository => repository.GetAll()).Returns(_responseList);
         _mockRepository.Verify(repository => repository.GetAll(), Times.AtMostOnce());
     }
@@ -54,15 +54,15 @@ public class AgentDotNetMetricsUnitTest
     public void Test_GetDotNetMetrics()
     {
         _mockRepository.Setup(repo => repo.GetByTimeFilter(_from, _to)).Returns(_responseList);
-        _mockRepository.Verify(repo=>repo.GetByTimeFilter(_from, _to),Times.AtMostOnce);
+        _mockRepository.Verify(repo => repo.GetByTimeFilter(_from, _to), Times.AtMostOnce);
     }
 
     // GetDotNetMetricById
     [Fact]
     public void Test_GetDotNetMetricById()
     {
-        _mockRepository.Setup(repo=>repo.GetById(1)).Verifiable();
-        _mockRepository.Verify(repo=>repo.GetById(1), Times.AtMostOnce);
+        _mockRepository.Setup(repo => repo.GetById(1)).Verifiable();
+        _mockRepository.Verify(repo => repo.GetById(1), Times.AtMostOnce);
     }
 
     // UpdateMetric

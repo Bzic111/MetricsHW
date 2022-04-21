@@ -3,7 +3,7 @@ using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-    logger.Debug("InitMain");
+logger.Debug("InitMain");
 
 try
 {

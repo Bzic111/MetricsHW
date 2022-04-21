@@ -67,7 +67,7 @@ public class AgentCPUMetricsUnitTest
             .Setup(r => r.GetById(1))
             .Verifiable();
         _mockRepository
-            .Verify(r=>r.GetById(1), Times.AtMostOnce());
+            .Verify(r => r.GetById(1), Times.AtMostOnce());
     }
 
     [Fact]

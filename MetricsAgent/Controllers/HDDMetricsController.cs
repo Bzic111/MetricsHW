@@ -23,7 +23,7 @@ public class HDDMetricsController : ControllerBase
     public IActionResult CreateMetric([FromRoute] DateTime date, [FromRoute] int value)
     {
         _logger.LogInformation($"Create new HDD metric with value = {value}, date = {date}");
-        _repository.Create(new() { Time = date, Value = value });
+        _repository.Create(new() { DateTime = date, Value = value });
         return Ok();
     }
 
@@ -62,7 +62,7 @@ public class HDDMetricsController : ControllerBase
     public IActionResult UpdateMetric([FromRoute] int id, [FromRoute] int value, [FromRoute] DateTime datetime)
     {
         _logger.LogInformation($"Update HDD metric id = {id} with value = {value}, date = {datetime}");
-        _repository.Update(new HddMetrics() { Id = id, Value = value, Time = datetime });
+        _repository.Update(new HddMetrics() { Id = id, Value = value, DateTime = datetime });
         return Ok();
     }
 

@@ -45,7 +45,7 @@ namespace AgentTests
         [Fact]
         public void Test_GetHDDMetrics()
         {
-            _mockRepository.Setup(repo=>repo.GetByTimeFilter(_from, _to)).Verifiable();
+            _mockRepository.Setup(repo => repo.GetByTimeFilter(_from, _to)).Verifiable();
             _mockRepository.Verify(repo => repo.GetByTimeFilter(_from, _to), Times.AtMostOnce());
         }
 

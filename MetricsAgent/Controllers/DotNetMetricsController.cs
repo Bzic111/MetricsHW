@@ -24,7 +24,7 @@ namespace MetricsAgent.Controllers
         public IActionResult CreateMetric([FromBody] DotNetMetricCreateRequest req)
         {
             _logger.LogInformation($"Create new DotNet metric with value = {req.Value}, date = {req.Date}");
-            _repository.Create(new() { Id = 0, Time = req.Date, Value = req.Value });
+            _repository.Create(new() { Id = 0, DateTime = req.Date, Value = req.Value });
             return Ok();
         }
 
@@ -54,7 +54,7 @@ namespace MetricsAgent.Controllers
             _logger.LogInformation($"Get DotNet metrics by id = {id}");
             return Ok(_repository.GetById(id));
         }
-        
+
         #endregion
 
         #region Update
@@ -63,7 +63,7 @@ namespace MetricsAgent.Controllers
         public IActionResult UpdateMetric([FromRoute] int id, [FromRoute] int value, [FromRoute] DateTime datetime)
         {
             _logger.LogInformation($"Update DotNet metric id = {id} with value = {value}, date = {datetime}");
-            _repository.Update(new DotNetMetrics() { Id = id, Value = value, Time = datetime });
+            _repository.Update(new DotNetMetrics() { Id = id, Value = value, DateTime = datetime });
             return Ok();
         }
 
