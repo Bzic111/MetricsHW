@@ -1,6 +1,6 @@
 ﻿using MetricsAgent.Interfaces;
 
-namespace MetricsAgent.Request;
+namespace MetricsAgent.DAL.Request;
 
 public abstract class MetricsAgentRequest : IRequest
 {

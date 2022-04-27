@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MetricsManagerHW.Interface;
 
 namespace MetricsManagerHW.Controllers
 {
@@ -7,11 +8,13 @@ namespace MetricsManagerHW.Controllers
     public class CPUMetricsController : ControllerBase
     {
         private readonly ILogger<CPUMetricsController> _logger;
+        private readonly ICPUMetricsRepository _repository;
         //private readonly IHttpClientFactory _clientFactory;
 
-        public CPUMetricsController(ILogger<CPUMetricsController> logger, IHttpClientFactory factory)
+        public CPUMetricsController(ILogger<CPUMetricsController> logger,ICPUMetricsRepository repository)
         {
             _logger = logger;
+            _repository = repository;
             //_clientFactory = factory;
         }
 

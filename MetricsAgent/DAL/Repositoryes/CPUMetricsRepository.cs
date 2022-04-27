@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Dapper;
-using MetricsAgent.DTO;
+using MetricsAgent.DAL.DTO;
+using MetricsAgent.DAL.Models;
 using MetricsAgent.Interfaces;
-using MetricsAgent.Models;
 using System.Data.SQLite;
 
-namespace MetricsAgent.Repositoryes;
+namespace MetricsAgent.DAL.Repositoryes;
 
 public class CPUMetricsRepository : ICPUMetricsRepository
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MetricsAgent.Models;
-using MetricsAgent.DTO;
+using MetricsAgent.DAL.DTO;
+using MetricsAgent.DAL.Models;
 
 public class MapperProfile : Profile
 {

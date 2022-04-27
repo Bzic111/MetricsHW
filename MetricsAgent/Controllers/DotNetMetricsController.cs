@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
-using MetricsAgent.Request;
+using MetricsAgent.DAL.Request;
 
 namespace MetricsAgent.Controllers
 {

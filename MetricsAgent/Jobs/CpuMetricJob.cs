@@ -5,28 +5,23 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace MetricsAgent.Jobs;
-
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
 public class CpuMetricJob : IJob
 {
     private ICPUMetricsRepository _repository;
-    private PerformanceCounter _cpuCounter;
+    private PerformanceCounter _performanceCounter;
     public CpuMetricJob(ICPUMetricsRepository repository)
     {
         _repository = repository;
-        _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
     }
     public Task Execute(IJobExecutionContext context)
     {
-        var cpuUsageInPercents = Convert.ToInt32(_cpuCounter.NextValue());
-        // Узнаем, когда мы сняли значение метрики
-        var time = DateTime.Now;
-        //TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-        // Теперь можно записать что-то посредством репозитория
         _repository.Create(new Models.CpuMetric
         {
-            DateTime = time,
-            Value = cpuUsageInPercents
+            DateTime = DateTime.Now,
+            Value = Convert.ToInt32(_performanceCounter.NextValue())
         });
         return Task.CompletedTask;
     }

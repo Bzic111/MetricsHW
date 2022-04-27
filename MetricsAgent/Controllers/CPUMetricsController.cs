@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
 using MetricsAgent.Models;
-using MetricsAgent.Request;
 using AutoMapper;
 using MetricsAgent.DTO;
 using System.Linq;
@@ -9,6 +8,7 @@ using System.Data;
 using System.Data.SQLite;
 using MetricsAgent.DAL;
 using Dapper;
+using MetricsAgent.DAL.Request;
 
 namespace MetricsAgent.Controllers;
 

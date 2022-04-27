@@ -1,7 +1,7 @@
-﻿using MetricsAgent.Interfaces;
-using MetricsAgent.Models;
+﻿using MetricsAgent.DAL.Models;
+using MetricsAgent.Interfaces;
 
-namespace MetricsAgent.Response;
+namespace MetricsAgent.DAL.Response;
 
 public class RAMMetricsResponse : IResponse<RamMetrics>
 {

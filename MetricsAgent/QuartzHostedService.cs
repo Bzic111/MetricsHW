@@ -45,7 +45,7 @@ public class QuartzHostedService : IHostedService
         var jobType = schedule.JobType;
         return JobBuilder
         .Create(jobType)
-        .WithIdentity(jobType.FullName)
+        .WithIdentity(jobType.FullName!)
         .WithDescription(jobType.Name)
         .Build();
     }

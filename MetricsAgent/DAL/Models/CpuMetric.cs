@@ -1,7 +1,6 @@
-﻿namespace MetricsAgent.Models
-{
-    public class CpuMetric : Metric
-    {
+﻿namespace MetricsAgent.DAL.Models;
 
-    }
+public class CpuMetric : Metric
+{
+
 }
