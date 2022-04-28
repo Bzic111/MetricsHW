@@ -14,7 +14,7 @@ public class FirstMigration : Migration
               .Identity()
               .WithColumn("Adress")
               .AsString()
-              .WithColumn("enabled")
+              .WithColumn("Enabled")
               .AsBoolean();
 
         Create.Table("cpumetrics")
@@ -22,6 +22,8 @@ public class FirstMigration : Migration
               .AsInt64()
               .PrimaryKey()
               .Identity()
+              .WithColumn("agentId")
+              .AsInt64()
               .WithColumn("Value")
               .AsInt32()
               .WithColumn("DateTime")
@@ -32,6 +34,8 @@ public class FirstMigration : Migration
               .AsInt64()
               .PrimaryKey()
               .Identity()
+              .WithColumn("agentId")
+              .AsInt64()
               .WithColumn("Value")
               .AsInt32()
               .WithColumn("DateTime")
@@ -42,6 +46,8 @@ public class FirstMigration : Migration
               .AsInt64()
               .PrimaryKey()
               .Identity()
+              .WithColumn("agentId")
+              .AsInt64()
               .WithColumn("Value")
               .AsInt32()
               .WithColumn("DateTime")
@@ -52,6 +58,8 @@ public class FirstMigration : Migration
               .AsInt64()
               .PrimaryKey()
               .Identity()
+              .WithColumn("agentId")
+              .AsInt64()
               .WithColumn("Value")
               .AsInt32()
               .WithColumn("DateTime")
@@ -62,6 +70,8 @@ public class FirstMigration : Migration
               .AsInt64()
               .PrimaryKey()
               .Identity()
+              .WithColumn("agentId")
+              .AsInt64()
               .WithColumn("Value")
               .AsInt32()
               .WithColumn("DateTime")
@@ -69,6 +79,7 @@ public class FirstMigration : Migration
     }
     public override void Down()
     {
+        Delete.Table("agents");
         Delete.Table("cpumetrics");
         Delete.Table("dotnetmetrics");
         Delete.Table("networkmetrics");

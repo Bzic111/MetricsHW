@@ -9,13 +9,11 @@ namespace MetricsManagerHW.Controllers
     {
         private readonly ILogger<CPUMetricsController> _logger;
         private readonly ICPUMetricsRepository _repository;
-        //private readonly IHttpClientFactory _clientFactory;
 
-        public CPUMetricsController(ILogger<CPUMetricsController> logger,ICPUMetricsRepository repository)
+        public CPUMetricsController(ILogger<CPUMetricsController> logger, ICPUMetricsRepository repository)
         {
             _logger = logger;
             _repository = repository;
-            //_clientFactory = factory;
         }
 
         #region Read

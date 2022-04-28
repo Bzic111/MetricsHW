@@ -10,7 +10,7 @@ namespace MetricsManagerHW.DAL.Repository;
 public class DotNetMetricsRepository : IDotNetMetricsRepository
 {
     private readonly string _connectionString;
-    private readonly IMapper _mapper;
+    public IMapper _mapper { get; init; }
     private readonly string _table;
 
     public DotNetMetricsRepository(IConfiguration configuration, IMapper mapper)
@@ -28,8 +28,8 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
         {
             connection
                 .Execute(
-                    $"INSERT INTO {_table}(value, DateTime) " +
-                    $"VALUES({item.Value}, \'{item.DateTime}\')");
+                    $"INSERT INTO {_table}(agentId, value, DateTime) " +
+                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime}\')");
         }
     }
 
@@ -45,7 +45,8 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
             return Remap(connection
                             .Query<DotNetMetricsDTO>(
                                 $"SELECT * " +
-                                $"FROM {_table}").ToList());
+                                $"FROM {_table}")
+                            .ToList());
         }
     }
 
@@ -55,7 +56,7 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
         {
             return _mapper.Map<DotNetMetrics>(connection
                                                 .QuerySingle<DotNetMetricsDTO>(
-                                                    $"SELECT Id, datetime, Value " +
+                                                    $"SELECT * " +
                                                     $"FROM {_table} WHERE id = {id}"));
         }
     }
@@ -68,7 +69,7 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
             string toStr = to.ToString("s");
             return Remap(connection
                             .Query<DotNetMetricsDTO>(
-                                $"SELECT Id, datetime, Value " +
+                                $"SELECT * " +
                                 $"FROM {_table} " +
                                 $"WHERE datetime >= '{fromStr}' " +
                                 $"AND datetime <= '{toStr}'")
@@ -76,6 +77,47 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
         }
     }
 
+    public DotNetMetrics GetByAgentId(int agentId)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            return _mapper.Map<DotNetMetrics>(connection
+                                                .QuerySingle<DotNetMetricsDTO>(
+                                                    $"SELECT * " +
+                                                    $"FROM {_table} " +
+                                                    $"WHERE agentId = {agentId}"));
+        }
+    }
+
+    public List<DotNetMetrics> GetAllOfAgent(int agentId)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            return Remap(connection
+                            .Query<DotNetMetricsDTO>(
+                                $"SELECT * " +
+                                $"FROM {_table} " +
+                                $"WHERE agentId = {agentId}")
+                            .ToList());
+        }
+    }
+
+    public List<DotNetMetrics> GetByAgentIdWithTimeFilter(DateTime from, DateTime to, int agentId)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            string fromStr = from.ToString("s");
+            string toStr = to.ToString("s");
+            return Remap(connection
+                            .Query<DotNetMetricsDTO>(
+                                $"SELECT Id, datetime, Value " +
+                                $"FROM {_table} " +
+                                $"WHERE datetime >= '{fromStr}' " +
+                                $"AND datetime <= '{toStr}' " +
+                                $"AND agentId = {agentId}")
+                            .ToList());
+        }
+    }
 
     #endregion
 
@@ -88,7 +130,7 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
             connection
                 .Execute(
                     $"UPDATE {_table} " +
-                    $"SET value = {item.Value}, datetime = \'{item.DateTime}\' " +
+                    $"SET agentId = {item.AgentId},value = {item.Value}, datetime = \'{item.DateTime}\' " +
                     $"WHERE id = {item.Id}");
         }
     }
@@ -113,13 +155,13 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
 
     #region Private
 
-    private List<DotNetMetrics> Remap(List<DotNetMetricsDTO> list)
-    {
-        var result = new List<DotNetMetrics>();
-        for (int i = 0; i < list.Count(); i++)
-            result.Add(_mapper.Map<DotNetMetrics>(list[i]));
-        return result;
-    }
+    private List<DotNetMetrics> Remap(List<DotNetMetricsDTO> list) => IRepository<DotNetMetrics>.Remap(list, _mapper);
+    //{
+    //    var result = new List<DotNetMetrics>();
+    //    for (int i = 0; i < list.Count(); i++)
+    //        result.Add(_mapper.Map<DotNetMetrics>(list[i]));
+    //    return result;
+    //}
 
     #endregion
 }

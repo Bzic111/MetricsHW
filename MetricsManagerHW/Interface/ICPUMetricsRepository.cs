@@ -4,12 +4,9 @@ namespace MetricsManagerHW.Interface;
 
 public interface ICPUMetricsRepository : IRepository<CpuMetric>
 {
-    CpuMetric GetAllWithPercentile(double percentile);
-    CpuMetric GetByTimeFilterWithPercentile(double percentile, DateTime from, DateTime to);
-    //CpuMetric GetCurrent();
-
-}
-public interface IAgentsRepository : IRepository<Agent>
-{
+    public CpuMetric GetAllWithPercentile(double percentile);
+    public CpuMetric GetByTimeFilterWithPercentile(double percentile, DateTime from, DateTime to);
+    public CpuMetric GetAllOfAgentWithPercentile(double percentile, int agentId);
+    public CpuMetric GetByAgentIdWithTimeFilterWithPercentile(double percentile, DateTime from, DateTime to, int agentId);
 
 }
