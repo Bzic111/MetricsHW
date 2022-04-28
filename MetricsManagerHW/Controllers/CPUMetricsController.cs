@@ -1,40 +1,59 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MetricsManagerHW.Interface;
 
-namespace MetricsManagerHW.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-public class CPUMetricsController : ControllerBase
+namespace MetricsManagerHW.Controllers
 {
-    public CPUMetricsController()
+    [Route("api/metrics/cpu")]
+    [ApiController]
+    public class CPUMetricsController : ControllerBase
     {
-    }
+        private readonly ILogger<CPUMetricsController> _logger;
+        private readonly ICPUMetricsRepository _repository;
 
-    #region Read
+        public CPUMetricsController(ILogger<CPUMetricsController> logger, ICPUMetricsRepository repository)
+        {
+            _logger = logger;
+            _repository = repository;
+        }
 
-    [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
-    public IActionResult GetCPUMetricsFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
-    {
-        return Ok();
-    }
+        #region Read
 
-    [HttpGet("api/metrics/cpu/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]
-    public IActionResult GetCPUMetricsPercentileFromAllCluster([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
-    {
-        return Ok();
-    }
+        [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
+        public IActionResult GetCPUMetricsFromAgent([FromRoute] int agentId,
+                                                    [FromRoute] TimeSpan fromTime,
+                                                    [FromRoute] TimeSpan toTime)
+        {
+            _logger.LogInformation($"Get CPU metrics from agent {agentId}");
+            return Ok();
+        }
 
-    [HttpGet("cluster/from/{fromTime}/to/{toTime}")]
-    public IActionResult GetCPUMetricsFromAllCluster([FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
-    {
-        return Ok();
-    }
-    [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]
-    public IActionResult GetCPUMetricsPercentileFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
-    {
-        return Ok();
-    }
+        [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]
+        public IActionResult GetCPUMetricsPercentileFromAgent([FromRoute] int agentId,
+                                                              [FromRoute] int percentile,
+                                                              [FromRoute] TimeSpan fromTime,
+                                                              [FromRoute] TimeSpan toTime)
+        {
+            _logger.LogInformation($"Get CPU metrics percentile {percentile} from agent {agentId}");
+            return Ok();
+        }
 
-    #endregion
+        [HttpGet("cluster/from/{fromTime}/to/{toTime}/percentiles/{percentile}")]
+        public IActionResult GetCPUMetricsPercentileFromAllCluster([FromRoute] int percentile,
+                                                                   [FromRoute] TimeSpan fromTime,
+                                                                   [FromRoute] TimeSpan toTime)
+        {
+            _logger.LogInformation($"Get CPU metrics percentiles {percentile} from cluster");
+            return Ok();
+        }
+
+        [HttpGet("cluster/from/{fromTime}/to/{toTime}")]
+        public IActionResult GetCPUMetricsFromAllCluster([FromRoute] TimeSpan fromTime,
+                                                         [FromRoute] TimeSpan toTime)
+        {
+            _logger.LogInformation($"Get CPU metrics from cluster");
+            return Ok();
+        }
+
+        #endregion
+    }
 }

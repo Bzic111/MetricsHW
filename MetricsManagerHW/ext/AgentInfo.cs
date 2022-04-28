@@ -1,11 +1,13 @@
-﻿namespace MetricsManagerHW.ext;
-public class AgentInfo
+﻿namespace MetricsManagerHW.ext
 {
-    public int AgentId { get; }
-    public Uri AgentAddress { get; }
-    public AgentInfo(int id, Uri uri)
+    public class AgentInfo
     {
-        AgentId = id;
-        AgentAddress = uri;
+        public int AgentId { get; set; }
+        public string AgentAddress { get; set; }
+        public AgentInfo(int id, string addres)
+        {
+            AgentId = id;
+            AgentAddress = addres;
+        }
     }
 }
