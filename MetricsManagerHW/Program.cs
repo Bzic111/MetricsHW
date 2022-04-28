@@ -1,9 +1,14 @@
-﻿using AutoMapper;
+﻿using MetricsManagerHW.DAL.Client;
+using AutoMapper;
 using FluentMigrator.Runner;
 using MetricsManagerHW.DAL.Repository;
 using MetricsManagerHW.Interface;
 using NLog;
 using NLog.Web;
+using Polly;
+using Quartz.Spi;
+using Quartz;
+using Quartz.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -33,7 +38,8 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddHttpClient();
-
+    builder.Services.AddHttpClient<IMetricsAgentClient, MetricsAgentClient>().AddTransientHttpErrorPolicy(p =>p.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(1000)));
+    //.SetHandlerLifetime(TimeSpan.FromMinutes(5)).AddPolicyHandler(GetRetryPolicy());
     var app = builder.Build();
 
     using (var scope = app.Services.CreateScope())
