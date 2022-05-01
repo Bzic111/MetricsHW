@@ -13,7 +13,7 @@ namespace ManagerTests
         public ManagerAgentsUnitTest()
         {
             _controller = new();
-            _agentInfo = new AgentInfo(1, new Uri(@"http://agent.info"));
+            _agentInfo = new AgentInfo() { AgentId = 1, AgentAdress =@"http://agent.info"};
         }
 
         [Fact]

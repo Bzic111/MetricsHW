@@ -27,9 +27,9 @@ namespace AgentTests
             _to = DateTime.Now.AddDays(1);
             _responseList = new()
             {
-                new() { Id = 1, Value = 50, Time = DateTime.Now },
-                new() { Id = 2, Value = 51, Time = DateTime.Now },
-                new() { Id = 3, Value = 52, Time = DateTime.Now }
+                new() { Id = 1, Value = 50, DateTime = DateTime.Now },
+                new() { Id = 2, Value = 51, DateTime = DateTime.Now },
+                new() { Id = 3, Value = 52, DateTime = DateTime.Now }
             };
         }
 

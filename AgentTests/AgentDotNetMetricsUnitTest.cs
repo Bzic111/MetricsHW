@@ -27,9 +27,9 @@ public class AgentDotNetMetricsUnitTest
         _to = DateTime.Now.AddDays(1);
         _responseList = new List<DotNetMetrics>()
         {
-            new DotNetMetrics(){ Id = 1,Value = 50,Time = DateTime.Now},
-            new DotNetMetrics(){ Id = 2,Value = 51,Time = DateTime.Now},
-            new DotNetMetrics(){ Id = 3,Value = 52,Time = DateTime.Now}
+            new DotNetMetrics(){ Id = 1,Value = 50,DateTime = DateTime.Now},
+            new DotNetMetrics(){ Id = 2,Value = 51,DateTime = DateTime.Now},
+            new DotNetMetrics(){ Id = 3,Value = 52,DateTime = DateTime.Now}
         };
     }
 
@@ -69,8 +69,8 @@ public class AgentDotNetMetricsUnitTest
     [Fact]
     public void Test_UpdateMetric()
     {
-        _mockRepository.Setup(repo => repo.Update(new() { Id = 1, Value = 1, Time = DateTime.Now })).Verifiable();
-        _mockRepository.Verify(repo => repo.Update(new() { Id = 1, Value = 1, Time = DateTime.Now }), Times.AtMostOnce);
+        _mockRepository.Setup(repo => repo.Update(new() { Id = 1, Value = 1, DateTime = DateTime.Now })).Verifiable();
+        _mockRepository.Verify(repo => repo.Update(new() { Id = 1, Value = 1, DateTime = DateTime.Now }), Times.AtMostOnce);
     }
 
     // DeleteMetric
