@@ -29,7 +29,7 @@ namespace MetricsAgent.DAL.Repositoryes
                 connection
                 .Execute(
                     $"INSERT INTO {_table}(value, DateTime) " +
-                    $"VALUES({item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.Value}, \'{item.DateTime:s}\')");
             }
         }
 

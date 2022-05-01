@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MetricsManagerHW.Interface;
+using MetricsManagerHW.DAL.Request;
 
 namespace MetricsManagerHW.Controllers
 {
@@ -16,7 +17,40 @@ namespace MetricsManagerHW.Controllers
             _repository = repository;
         }
 
+        #region Create
+
+        [HttpPost("create")]
+        public IActionResult CreateMetric([FromBody] CpuMetricCreateRequest req)
+        {
+            _logger.LogInformation($"Create new CPU metric with value = {req.Value}, date = {req.Date}");
+            _repository.Create(new() { Id = 0, DateTime = req.Date, Value = req.Value });
+            return Ok();
+        }
+
+        #endregion
+
         #region Read
+
+        [HttpGet("all")]
+        public IActionResult GetAllCPUMetrics()
+        {
+            _logger.LogInformation($"Get all CPU metrics");
+            var result = _repository.GetAll();
+            return Ok(result);
+        }
+        [HttpGet("all/agent/{id}")]
+        public void GetAllCPUMetricsFromAgent([FromRoute] int id)
+        {
+            _logger.LogInformation($"Get all CPU metrics from agent {id}");
+            var result = _repository.GetAllOfAgent(id);
+        }
+
+        [HttpGet("id/{id}")]
+        public IActionResult GetCPUMetricById([FromRoute] int id)
+        {
+            _logger.LogInformation($"Get CPU metrics by id = {id}");
+            return Ok(_repository.GetById(id));
+        }
 
         [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
         public IActionResult GetCPUMetricsFromAgent([FromRoute] int agentId,

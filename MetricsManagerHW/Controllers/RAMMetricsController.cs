@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MetricsManagerHW.Interface;
+using MetricsManagerHW.DAL.Request;
 
 namespace MetricsManagerHW.Controllers
 {
@@ -7,13 +9,22 @@ namespace MetricsManagerHW.Controllers
     public class RAMMetricsController : ControllerBase
     {
         private readonly ILogger<RAMMetricsController> _logger;
-        public RAMMetricsController(ILogger<RAMMetricsController> logger)
+        private readonly IRamMetricsRepository _repository;
+
+        public RAMMetricsController(ILogger<RAMMetricsController> logger, IRamMetricsRepository repository)
         {
             _logger = logger;
+            _repository = repository;
         }
 
         #region Read
-
+        [HttpGet("all")]
+        public IActionResult GetAllNetworkMetrics()
+        {
+            _logger.LogInformation($"Get all RAM metrics");
+            var result = _repository.GetAll();
+            return Ok(result);
+        }
         [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
         public IActionResult GetRAMMetricsFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {

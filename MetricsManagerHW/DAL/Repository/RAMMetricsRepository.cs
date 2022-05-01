@@ -11,7 +11,7 @@ public class RAMMetricsRepository : IRamMetricsRepository
 {
     private readonly string _connectionString;
     private readonly string _table;
-    public IMapper _mapper { get; init; }
+    private readonly IMapper _mapper;// { get; }
 
     public RAMMetricsRepository(IConfiguration configuration, IMapper mapper)
     {
@@ -29,7 +29,7 @@ public class RAMMetricsRepository : IRamMetricsRepository
             connection
                 .Execute(
                     $"INSERT INTO {_table}(agentId, value, DateTime) " +
-                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime:s}\')");
         }
     }
 
@@ -153,15 +153,15 @@ public class RAMMetricsRepository : IRamMetricsRepository
     #endregion
 
     #region Private
-    private List<RamMetrics> Remap(List<RamMetricsDTO> list) => IRepository<RamMetrics>.Remap(list,_mapper);
-    
-    //private List<RamMetrics> Remap(List<RamMetricsDTO> list)
-    //{
-    //    var result = new List<RamMetrics>();
-    //    for (int i = 0; i < list.Count(); i++)
-    //        result.Add(_mapper.Map<RamMetrics>(list[i]));
-    //    return result;
-    //}
+    //private List<RamMetrics> Remap(List<RamMetricsDTO> list) /*=> IRepository<RamMetrics>.Remap(list, _mapper);*/
+
+    private List<RamMetrics> Remap(List<RamMetricsDTO> list)
+    {
+        var result = new List<RamMetrics>();
+        for (int i = 0; i < list.Count(); i++)
+            result.Add(_mapper.Map<RamMetrics>(list[i]));
+        return result;
+    }
 
     #endregion
 }

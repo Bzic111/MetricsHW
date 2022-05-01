@@ -9,9 +9,10 @@ namespace MetricsManagerHW.DAL.Repository;
 
 public class HDDMetricsRepository : IHddMetricsRepository
 {
-    private readonly string _connectionString;
-    public IMapper _mapper { get; init; }
+    private readonly IMapper _mapper;// { get => _mapper; init => _mapper = value; }
     private readonly string _table;
+    private readonly string _connectionString;
+
     public HDDMetricsRepository(IConfiguration configuration, IMapper mapper)
     {
         _connectionString = configuration.GetConnectionString("SQLiteDB");
@@ -29,7 +30,7 @@ public class HDDMetricsRepository : IHddMetricsRepository
             connection
             .Execute(
                 $"INSERT INTO {_table}(agentId, value, DateTime) " +
-                $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime:s}\')");
         }
     }
 
@@ -75,7 +76,7 @@ public class HDDMetricsRepository : IHddMetricsRepository
                             .ToList());
         }
     }
-    
+
     public HddMetrics GetByAgentId(int agentId)
     {
         using (var connection = new SQLiteConnection(_connectionString))
@@ -154,13 +155,13 @@ public class HDDMetricsRepository : IHddMetricsRepository
 
     #region Private
 
-    private List<HddMetrics> Remap(List<HddMetricsDTO> list) => IRepository<HddMetrics>.Remap(list, _mapper);
-    //{
-    //    var result = new List<HddMetrics>();
-    //    for (int i = 0; i < list.Count(); i++)
-    //        result.Add(_mapper.Map<HddMetrics>(list[i]));
-    //    return result;
-    //}
+    private List<HddMetrics> Remap(List<HddMetricsDTO> list) /*=> IRepository<HddMetrics>.Remap(list, _mapper);*/
+    {
+        var result = new List<HddMetrics>();
+        for (int i = 0; i < list.Count(); i++)
+            result.Add(_mapper.Map<HddMetrics>(list[i]));
+        return result;
+    }
 
     #endregion
 }

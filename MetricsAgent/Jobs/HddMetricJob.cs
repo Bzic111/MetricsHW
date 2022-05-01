@@ -1,4 +1,5 @@
-﻿using MetricsAgent.Interfaces;
+﻿using MetricsAgent.DAL.Models;
+using MetricsAgent.Interfaces;
 using Quartz;
 using System.Diagnostics;
 
@@ -15,7 +16,7 @@ public class HddMetricJob : IJob
     }
     public Task Execute(IJobExecutionContext context)
     {
-        _repository.Create(new Models.HddMetrics
+        _repository.Create(new HddMetrics
         {
             DateTime = DateTime.Now,
             Value = Convert.ToInt32(_performanceCounter.NextValue())

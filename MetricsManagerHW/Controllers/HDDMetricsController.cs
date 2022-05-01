@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MetricsManagerHW.Interface;
+using MetricsManagerHW.DAL.Request;
 
 namespace MetricsManagerHW.Controllers
 {
@@ -7,13 +9,22 @@ namespace MetricsManagerHW.Controllers
     public class HDDMetricsController : ControllerBase
     {
         private readonly ILogger<HDDMetricsController> _logger;
-        public HDDMetricsController(ILogger<HDDMetricsController> logger)
+        private readonly IHddMetricsRepository _repository;
+        public HDDMetricsController(ILogger<HDDMetricsController> logger, IHddMetricsRepository repository)
         {
             _logger = logger;
+            _repository = repository;
         }
 
         #region Read
 
+        [HttpGet("all")]
+        public IActionResult GetAllHDDMetrics()
+        {
+            _logger.LogInformation($"Get all HDD metrics");
+            var result = _repository.GetAll();
+            return Ok(result);
+        }
         [HttpGet("agent/{agentId}/left/from/{fromTime}/to/{toTime}")]
         public IActionResult GetHDDMetricsFromAgent([FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {

@@ -1,4 +1,5 @@
-﻿using MetricsAgent.Interfaces;
+﻿using MetricsAgent.DAL.Models;
+using MetricsAgent.Interfaces;
 using Quartz;
 using System.Diagnostics;
 
@@ -18,7 +19,7 @@ public class DotNetMetricJob : IJob
 
     public Task Execute(IJobExecutionContext context)
     {
-        _repository.Create(new Models.DotNetMetrics
+        _repository.Create(new DotNetMetrics
         {
             DateTime = DateTime.Now,
             Value = Convert.ToInt32(_performanceCounter.NextValue())

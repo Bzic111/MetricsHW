@@ -1,14 +1,16 @@
-using MetricsAgent.Jobs;
+using AutoMapper;
+using Dapper;
 using FluentMigrator.Runner;
+using MetricsAgent;
+using MetricsAgent.DAL;
+using MetricsAgent.DAL.Repositoryes;
+using MetricsAgent.Interfaces;
+using MetricsAgent.Jobs;
 using NLog;
 using NLog.Web;
-using MetricsAgent.Interfaces;
-using AutoMapper;
-using Quartz.Spi;
 using Quartz;
 using Quartz.Impl;
-using MetricsAgent;
-using MetricsAgent.DAL.Repositoryes;
+using Quartz.Spi;
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -20,14 +22,14 @@ try
     var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new MapperProfile()));
     var mapper = mapperConfiguration.CreateMapper();
 
+    SqlMapper.AddTypeHandler(new DateTimeHandler());
     builder.Services.AddControllers();
-
     builder.Services.AddHostedService<QuartzHostedService>();
 
     builder.Services.AddFluentMigratorCore()
                     .ConfigureRunner(rb => rb
                         .AddSQLite()
-                        .WithGlobalConnectionString("Data Source=test.db")
+                        .WithGlobalConnectionString("SQLiteDB")
                         .ScanIn(typeof(Program).Assembly).For.Migrations())
                     .AddLogging(lb => lb.AddFluentMigratorConsole());
 
@@ -49,13 +51,13 @@ try
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(CpuMetricJob),
                                                   cronExpression: "0/5 * * * * ?")); // Запускать каждые 5 секунд
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(RamMetricJob),
-                                                  cronExpression: "0/5 * * * * ?"));
+                                                  cronExpression: "1/6 * * * * ?"));
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(NetworkMetricJob),
-                                                  cronExpression: "0/5 * * * * ?"));
+                                                  cronExpression: "2/7 * * * * ?"));
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(HddMetricJob),
-                                                  cronExpression: "0/5 * * * * ?"));
+                                                  cronExpression: "3/8 * * * * ?"));
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(DotNetMetricJob),
-                                                  cronExpression: "0/5 * * * * ?"));
+                                                  cronExpression: "4/9 * * * * ?"));
 
     builder.Services.AddSingleton(mapper);
 

@@ -14,7 +14,9 @@ public class QuartzHostedService : IHostedService
     private readonly ISchedulerFactory _schedulerFactory;
     private readonly IJobFactory _jobFactory;
     private readonly IEnumerable<JobSchedule> _jobSchedules;
+#pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
     public QuartzHostedService(ICPUMetricsRepository repository,
+#pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
                                ISchedulerFactory schedulerFactory,
                                IJobFactory jobFactory,
                                IEnumerable<JobSchedule> jobSchedules)
@@ -38,7 +40,9 @@ public class QuartzHostedService : IHostedService
     }
     public async Task StopAsync(CancellationToken cancellationToken)
     {
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
         await Scheduler?.Shutdown(cancellationToken);
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
     }
     private static IJobDetail CreateJobDetail(JobSchedule schedule)
     {

@@ -29,7 +29,7 @@ public class AgentsRepository
             connection
                 .Execute(
                     $"INSERT INTO {_table}(Adress, Enabled) " +
-                    $"VALUES({item.Adress}, {item.Enabled})");
+                    $"VALUES(\'{item.Adress}\', {item.Enabled})");
         }
     }
 
@@ -64,11 +64,9 @@ public class AgentsRepository
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
+            string query = $"SELECT * FROM {_table} WHERE enabled = {(enabled ? 1 : 0)}";
             return Remap(connection
-                            .Query<AgentDTO>(
-                                $"SELECT * " +
-                                $"FROM {_table}" +
-                                $"WHERE enabled = {enabled}")
+                            .Query<AgentDTO>(query)
                             .ToList());
         }
     }
@@ -83,11 +81,20 @@ public class AgentsRepository
         {
             connection.Execute(
                 $"UPDATE {_table} " +
-                $"SET adress = {item.Adress}, enabled = {item.Enabled} " +
+                $"SET adress = \'{item.Adress}\', enabled = {item.Enabled} " +
                 $"WHERE id = {item.Id}");
         }
     }
-
+    public void UpdateAdress(Agent item)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            connection.Execute(
+                $"UPDATE {_table} " +
+                $"SET adress = \'{item.Adress}\' " +
+                $"WHERE id = {item.Id}");
+        }
+    }
     #endregion
 
     #region Delete

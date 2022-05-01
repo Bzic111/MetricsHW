@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
-using MetricsAgent.Models;
+using MetricsAgent.DAL.Models;
 
 namespace MetricsAgent.Controllers
 {
@@ -50,8 +50,8 @@ namespace MetricsAgent.Controllers
         public IActionResult GetRAMMetrics([FromRoute] DateTime fromTime, [FromRoute] DateTime toTime)
         {
             _logger.LogInformation($"Get RAM metrics by period from {fromTime} to {toTime}");
-            _repository.GetByTimeFilter(fromTime, toTime);
-            return Ok();
+            var result = _repository.GetByTimeFilter(fromTime, toTime);
+            return Ok(result);
         }
 
         #endregion

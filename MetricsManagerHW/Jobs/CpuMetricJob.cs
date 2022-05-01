@@ -1,35 +1,71 @@
-﻿using MetricsManagerHW.DAL.Repository;
+﻿using MetricsManagerHW.DAL.Client;
+using MetricsManagerHW.DAL.Models;
+using MetricsManagerHW.DAL.Repository;
 using MetricsManagerHW.Interface;
 using Quartz;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using NLog;
+using NLog.Web;
 
 namespace MetricsManagerHW.Jobs;
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
+
 public class CpuMetricJob : IJob
 {
     private ICPUMetricsRepository _repository;
-    private HttpClient _httpClient;
+    private MetricsAgentClient _httpClientMetricsAgent;
     private AgentsRepository _agentsRepository;
-    public CpuMetricJob(ICPUMetricsRepository repository, AgentsRepository agentsRepository, HttpClient client)
+    private ILogger<CpuMetricJob> _logger;
+    public CpuMetricJob(ICPUMetricsRepository cpuRepository,
+                        AgentsRepository agentsRepository,
+                        MetricsAgentClient client,
+                        ILogger<CpuMetricJob> logger)
     {
-        _repository = repository;
-        _httpClient = client;
+        _repository = cpuRepository;
+        _httpClientMetricsAgent = client;
         _agentsRepository = agentsRepository;
+        _logger = logger;
     }
     public Task Execute(IJobExecutionContext context)
     {
-        var agents = _agentsRepository.GetAll();
-        foreach (var item in agents)
+        _logger.LogInformation("Init task job");
+        var agents = _agentsRepository.GetAll(true);
+        List<ResponseFromAgent<CpuMetric>> responseList = new();
+
+        foreach (var agent in agents)
         {
-            _httpClient.
+            _logger.LogDebug("Run 1-st cycle");
+            RequestToAgent request = new RequestToAgent()
+            {
+                ApiRoute = @"metrics/cpu",
+                From = DateTime.Now.AddMinutes(-1),
+                To = DateTime.Now,
+                Agent = new()
+                {
+                    AgentId = agent.Id,
+                    AgentAdress = agent.Adress! /*@"http://localhost:5056"*/
+                }
+            };
+            responseList.Add(_httpClientMetricsAgent.GetMetricsFromAgent<CpuMetric>(request));
         }
-        _repository.Create(new Models.CpuMetric
+
+        foreach (var response in responseList)
         {
-            DateTime = DateTime.Now,
-            Value = Convert.ToInt32(_performanceCounter.NextValue())
-        });
+            _logger.LogDebug("Run 2-st cycle");
+            if (response is not null)
+            {
+                SendDataToDB(response.Collection, _repository);
+            }
+        }
         return Task.CompletedTask;
+
+        void SendDataToDB<T>(IEnumerable<T> list, IRepository<T> repository) where T : class
+        {
+            _logger.LogDebug("Sending data to DB");
+            foreach (var item in list)
+            {
+                repository.Create(item);
+                _logger.LogDebug("Data sended to DB");
+            }
+        }
     }
+
 }

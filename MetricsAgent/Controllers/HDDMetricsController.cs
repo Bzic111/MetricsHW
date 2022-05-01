@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MetricsAgent.Interfaces;
-using MetricsAgent.Models;
+using MetricsAgent.DAL.Models;
 
 namespace MetricsAgent.Controllers;
 

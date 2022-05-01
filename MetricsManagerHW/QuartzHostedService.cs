@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Spi;
 
-namespace MetricsAgent;
+//namespace MetricsManagerHW;
 
 public class QuartzHostedService : IHostedService
 {
@@ -16,7 +16,9 @@ public class QuartzHostedService : IHostedService
     private readonly IEnumerable<JobSchedule> _jobSchedules;
     public IScheduler Scheduler { get; set; }
 
+#pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
     public QuartzHostedService(ISchedulerFactory schedulerFactory,
+#pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
                                IJobFactory jobFactory,
                                IEnumerable<JobSchedule> jobSchedules)
     {
@@ -40,7 +42,9 @@ public class QuartzHostedService : IHostedService
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
         await Scheduler?.Shutdown(cancellationToken);
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
     }
 
     private static IJobDetail CreateJobDetail(JobSchedule schedule)

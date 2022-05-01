@@ -1,5 +1,6 @@
 ﻿using MetricsAgent.Interfaces;
 using Quartz;
+using MetricsAgent.DAL.Models;
 using System.Diagnostics;
 
 namespace MetricsAgent.Jobs;
@@ -16,7 +17,7 @@ public class NetworkMetricJob : IJob
     }
     public Task Execute(IJobExecutionContext context)
     {
-        _repository.Create(new Models.NetworkMetrics
+        _repository.Create(new NetworkMetrics
         {
             DateTime = DateTime.Now,
             Value = Convert.ToInt32(_performanceCounter.NextValue())

@@ -9,8 +9,8 @@ namespace MetricsManagerHW.DAL.Repository;
 
 public class DotNetMetricsRepository : IDotNetMetricsRepository
 {
+    private readonly IMapper _mapper;// { get => _mapper; init => _mapper = value; }
     private readonly string _connectionString;
-    public IMapper _mapper { get; init; }
     private readonly string _table;
 
     public DotNetMetricsRepository(IConfiguration configuration, IMapper mapper)
@@ -29,7 +29,7 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
             connection
                 .Execute(
                     $"INSERT INTO {_table}(agentId, value, DateTime) " +
-                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime:s}\')");
         }
     }
 
@@ -155,13 +155,13 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
 
     #region Private
 
-    private List<DotNetMetrics> Remap(List<DotNetMetricsDTO> list) => IRepository<DotNetMetrics>.Remap(list, _mapper);
-    //{
-    //    var result = new List<DotNetMetrics>();
-    //    for (int i = 0; i < list.Count(); i++)
-    //        result.Add(_mapper.Map<DotNetMetrics>(list[i]));
-    //    return result;
-    //}
+    private List<DotNetMetrics> Remap(List<DotNetMetricsDTO> list)/* => IRepository<DotNetMetrics>.Remap(list, _mapper);*/
+    {
+        var result = new List<DotNetMetrics>();
+        for (int i = 0; i < list.Count(); i++)
+            result.Add(_mapper.Map<DotNetMetrics>(list[i]));
+        return result;
+    }
 
     #endregion
 }

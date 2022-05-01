@@ -9,8 +9,8 @@ namespace MetricsManagerHW.DAL.Repository;
 
 public class NetworkMetricsRepository : INetworkMetricsRepository
 {
+    private readonly IMapper _mapper;// { get => _mapper; init => _mapper = value; }
     private readonly string _connectionString;
-    public IMapper _mapper { get; init; }
     private readonly string _table;
 
     public NetworkMetricsRepository(IConfiguration configuration, IMapper mapper)
@@ -29,7 +29,7 @@ public class NetworkMetricsRepository : INetworkMetricsRepository
             connection
                 .Execute(
                     $"INSERT INTO {_table}(agentId, value, DateTime) " +
-                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime:s}\')");
         }
     }
 
@@ -154,13 +154,13 @@ public class NetworkMetricsRepository : INetworkMetricsRepository
 
     #region Private
 
-    private List<NetworkMetrics> Remap(List<NetworkMetricsDTO> list) => IRepository<NetworkMetrics>.Remap(list, _mapper);
-    //{
-    //    var result = new List<NetworkMetrics>();
-    //    for (int i = 0; i < list.Count(); i++)
-    //        result.Add(_mapper.Map<NetworkMetrics>(list[i]));
-    //    return result;
-    //}
+    private List<NetworkMetrics> Remap(List<NetworkMetricsDTO> list) /*=> IRepository<NetworkMetrics>.Remap(list, _mapper);*/
+    {
+        var result = new List<NetworkMetrics>();
+        for (int i = 0; i < list.Count(); i++)
+            result.Add(_mapper.Map<NetworkMetrics>(list[i]));
+        return result;
+    }
 
     #endregion
 }

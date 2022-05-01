@@ -11,25 +11,28 @@ public class CPUMetricsRepository : ICPUMetricsRepository
 {
     private readonly string _connectionString;
     private readonly string _table; // = "cpumetrics";
-    public IMapper _mapper { get; init; }
+    private readonly IMapper _mapper;// { get => _mapper; init => _mapper = value; }
+    private readonly ILogger<CPUMetricsRepository> _logger;
 
-    public CPUMetricsRepository(IConfiguration configuration, IMapper mapper)
+    public CPUMetricsRepository(IConfiguration configuration, IMapper mapper, ILogger<CPUMetricsRepository> logger)
     {
         _connectionString = configuration.GetConnectionString("SQLiteDB");
         _table = configuration.GetValue<string>($"Tables:{GetType().Name}");
         _mapper = mapper;
+        _logger = logger;
     }
 
     #region Create
 
     public void Create(CpuMetric item)
     {
+        _logger.LogInformation($"CPU repository Create item {item.DateTime}\n{item.Value}\n{item.AgentId}\n{item}");
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection
                 .Execute(
                     $"INSERT INTO {_table}(agentId, value, DateTime) " +
-                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.AgentId}, {item.Value}, \'{item.DateTime:s}\')");
         }
     }
 
@@ -87,7 +90,7 @@ public class CPUMetricsRepository : ICPUMetricsRepository
             string toStr = to.ToString("s");
             return Remap(connection
                 .Query<CpuMetricDTO>(
-                $"SELECT Id, datetime, Value " +
+                $"SELECT * " +
                 $"FROM {_table} " +
                 $"WHERE datetime >= '{fromStr}' " +
                 $"AND datetime <= '{toStr}'")
@@ -102,7 +105,7 @@ public class CPUMetricsRepository : ICPUMetricsRepository
             string toStr = to.ToString("s");
             return Remap(connection
                 .Query<CpuMetricDTO>(
-                $"SELECT Id, datetime, Value " +
+                $"SELECT * " +
                 $"FROM {_table} " +
                 $"WHERE datetime >= '{fromStr}' " +
                 $"AND datetime <= '{toStr}'" +
@@ -116,7 +119,7 @@ public class CPUMetricsRepository : ICPUMetricsRepository
         => GetPercentile(percentile, GetByTimeFilter(from, to));
     public CpuMetric GetAllOfAgentWithPercentile(double percentile, int agentId)
         => GetPercentile(percentile, GetAllOfAgent(agentId));
-    public CpuMetric GetByAgentIdWithTimeFilterWithPercentile(double percentile, DateTime from, DateTime to,int agentId)
+    public CpuMetric GetByAgentIdWithTimeFilterWithPercentile(double percentile, DateTime from, DateTime to, int agentId)
         => GetPercentile(percentile, GetByAgentIdWithTimeFilter(from, to, agentId));
 
     #endregion
@@ -155,13 +158,13 @@ public class CPUMetricsRepository : ICPUMetricsRepository
 
     #region Private
 
-    private List<CpuMetric> Remap(List<CpuMetricDTO> list) => IRepository<CpuMetric>.Remap(list, _mapper);
-    //{
-    //    var result = new List<CpuMetric>();
-    //    for (int i = 0; i < list.Count(); i++)
-    //        result.Add(_mapper.Map<CpuMetric>(list[i]));
-    //    return result;
-    //}
+    private List<CpuMetric> Remap(List<CpuMetricDTO> list)/* => IRepository<CpuMetric>.Remap(list, _mapper);*/
+    {
+        var result = new List<CpuMetric>();
+        for (int i = 0; i < list.Count(); i++)
+            result.Add(_mapper.Map<CpuMetric>(list[i]));
+        return result;
+    }
 
     private CpuMetric GetPercentile(double percentile, List<CpuMetric> list)
     {

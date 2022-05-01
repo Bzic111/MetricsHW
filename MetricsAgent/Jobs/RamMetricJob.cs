@@ -1,5 +1,6 @@
 ﻿using MetricsAgent.Interfaces;
 using Quartz;
+using MetricsAgent.DAL.Models;
 using System.Diagnostics;
 
 namespace MetricsAgent.Jobs;
@@ -15,7 +16,7 @@ public class RamMetricJob : IJob
     }
     public Task Execute(IJobExecutionContext context)
     {
-        _repository.Create(new Models.RamMetrics
+        _repository.Create(new RamMetrics
         {
             DateTime = DateTime.Now,
             Value = Convert.ToInt32(_performanceCounter.NextValue())

@@ -29,7 +29,7 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
             connection
                 .Execute(
                     $"INSERT INTO {_table}(value, DateTime) " +
-                    $"VALUES({item.Value}, \'{item.DateTime}\')");
+                    $"VALUES({item.Value}, \'{item.DateTime:s}\')");
         }
     }
 
@@ -67,12 +67,13 @@ public class DotNetMetricsRepository : IDotNetMetricsRepository
             string fromStr = from.ToString("s");
             string toStr = to.ToString("s");
             return Remap(connection
-                            .Query<DotNetMetricsDTO>(
-                                $"SELECT Id, datetime, Value " +
-                                $"FROM {_table} " +
-                                $"WHERE datetime >= '{fromStr}' " +
-                                $"AND datetime <= '{toStr}'")
-                            .ToList());
+                .Query<DotNetMetricsDTO>(
+                $"SELECT Id, datetime, Value " +
+                $"FROM {_table} " +
+                $"WHERE DateTime " +
+                $"BETWEEN \'{fromStr}\' " +
+                $"AND \'{toStr}\'")
+                .ToList());
         }
     }
 

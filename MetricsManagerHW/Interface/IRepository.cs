@@ -4,6 +4,7 @@ namespace MetricsManagerHW.Interface;
 
 public interface IRepository<T> where T : class
 {
+    //IMapper _mapper { get; }
     #region Create
 
     /// <summary>
@@ -29,7 +30,7 @@ public interface IRepository<T> where T : class
     /// <param name="agentId">Идентификатор агента</param>
     /// <returns>Метрика</returns>
     T GetByAgentId(int agentId);
-    
+
     /// <summary>
     /// Получить все метрики
     /// </summary>
@@ -83,12 +84,12 @@ public interface IRepository<T> where T : class
     #endregion
 
     #region Private
-    static List<T> Remap<T2>(List<T2> list, IMapper _mapper) 
-    {
-        var result = new List<T>();
-        for (int i = 0; i < list.Count(); i++)
-            result.Add(_mapper.Map<T>(list[i]));
-        return result;
-    }
+    //List<T> Remap<T2>(List<T2> list, IMapper _mapper);
+    //{
+    //    var result = new List<T>();
+    //    for (int i = 0; i < list.Count(); i++)
+    //        result.Add(_mapper.Map<T>(list[i]));
+    //    return result;
+    //}
     #endregion
 }

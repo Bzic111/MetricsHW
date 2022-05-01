@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MetricsAgent.Interfaces;
-using MetricsAgent.Models;
-using AutoMapper;
-using MetricsAgent.DTO;
-using System.Linq;
-using System.Data;
-using System.Data.SQLite;
+﻿using Dapper;
 using MetricsAgent.DAL;
-using Dapper;
+using MetricsAgent.DAL.Models;
 using MetricsAgent.DAL.Request;
+using MetricsAgent.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MetricsAgent.Controllers;
 
@@ -22,7 +17,7 @@ public class CPUMetricsController : ControllerBase
     {
         _logger = logger;
         _repository = repository;
-        SqlMapper.AddTypeHandler(new DateTimeHandler());
+        //SqlMapper.AddTypeHandler(new DateTimeHandler());
     }
 
     #region Create
