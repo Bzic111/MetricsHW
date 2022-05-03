@@ -3,8 +3,6 @@ using MetricsManagerHW.DAL.Models;
 using MetricsManagerHW.DAL.Repository;
 using MetricsManagerHW.Interface;
 using Quartz;
-using NLog;
-using NLog.Web;
 
 namespace MetricsManagerHW.Jobs;
 

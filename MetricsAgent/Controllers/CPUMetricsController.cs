@@ -1,6 +1,4 @@
-﻿using Dapper;
-using MetricsAgent.DAL;
-using MetricsAgent.DAL.Models;
+﻿using MetricsAgent.DAL.Models;
 using MetricsAgent.DAL.Request;
 using MetricsAgent.Interfaces;
 using Microsoft.AspNetCore.Mvc;

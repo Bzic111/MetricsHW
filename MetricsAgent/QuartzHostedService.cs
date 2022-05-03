@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using MetricsAgent.Interfaces;
-using Microsoft.Extensions.Hosting;
+﻿using MetricsAgent.Interfaces;
 using Quartz;
 using Quartz.Spi;
 

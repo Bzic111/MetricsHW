@@ -3,7 +3,6 @@ using MetricsManagerHW.DAL.Models;
 using MetricsManagerHW.DAL.Repository;
 using MetricsManagerHW.Interface;
 using Quartz;
-using System.Diagnostics;
 
 namespace MetricsManagerHW.Jobs;
 public class HddMetricJob : IJob

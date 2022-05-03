@@ -1,9 +1,7 @@
 ﻿using MetricsAgent.Interfaces;
 using MetricsAgent.DAL.Models;
 using Quartz;
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace MetricsAgent.Jobs;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]

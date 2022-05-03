@@ -1,10 +1,7 @@
-﻿using Dapper;
-using MetricsManagerHW.DAL;
-using MetricsManagerHW.DAL.Client;
+﻿using MetricsManagerHW.DAL.Client;
 using MetricsManagerHW.DAL.Models;
 using MetricsManagerHW.DAL.Repository;
 using MetricsManagerHW.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetricsManagerHW.Controllers;

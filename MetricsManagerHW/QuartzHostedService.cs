@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using MetricsManagerHW.Interface;
-using Microsoft.Extensions.Hosting;
-using Quartz;
+﻿using Quartz;
 using Quartz.Spi;
 
 //namespace MetricsManagerHW;

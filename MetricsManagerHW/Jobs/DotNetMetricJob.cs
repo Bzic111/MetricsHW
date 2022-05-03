@@ -1,7 +1,6 @@
 ﻿using MetricsManagerHW.Interface;
 using MetricsManagerHW.DAL.Models;
 using Quartz;
-using System.Diagnostics;
 using MetricsManagerHW.DAL.Client;
 using MetricsManagerHW.DAL.Repository;
 

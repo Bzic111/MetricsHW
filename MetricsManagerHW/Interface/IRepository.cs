@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace MetricsManagerHW.Interface;
+﻿namespace MetricsManagerHW.Interface;
 
 public interface IRepository<T> where T : class
 {

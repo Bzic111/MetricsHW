@@ -1,8 +1,4 @@
-﻿using MetricsManagerHW.DAL.Response;
-using MetricsManagerHW.DAL.Request;
-using MetricsManagerHW.DAL.Models;
-using System.Net.Http;
-using Microsoft.Extensions.Logging;
+﻿using MetricsManagerHW.DAL.Models;
 
 namespace MetricsManagerHW.DAL.Client;
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MetricsManagerHW.Interface;
-using MetricsManagerHW.DAL.Request;
 
 namespace MetricsManagerHW.Controllers
 {
