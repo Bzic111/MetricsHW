@@ -23,7 +23,7 @@ public class MetricsAgentClient : IMetricsAgentClient
         {
             HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
             var resp = response.Content.ReadFromJsonAsync<List<T>>().Result;
-            if (resp is not null && resp.Count>0)
+            if (resp is not null && resp.Count > 0)
             {
                 resp.ForEach(metric => metric.AgentId = request.Agent.AgentId);
                 ResponseFromAgent<T> result = new ResponseFromAgent<T>()
@@ -40,93 +40,93 @@ public class MetricsAgentClient : IMetricsAgentClient
         }
         return null!;
     }
-    //public ResponseFromAgent<RamMetrics> GetRamMetrics(RequestToAgent request)
-    //{
-    //    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
-    //    try
-    //    {
-    //        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
-    //        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
-    //        {
-    //            return JsonSerializer.DeserializeAsync<ResponseFromAgent<RamMetrics>>(responseStream).Result!;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _logger.LogError(ex.Message);
-    //    }
-    //    return null!;
-    //}
-
-    //public ResponseFromAgent<HddMetrics> GetHddMetrics(RequestToAgent request)
-    //{
-    //    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
-    //    try
-    //    {
-    //        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
-    //        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
-    //        {
-    //            return JsonSerializer.DeserializeAsync<ResponseFromAgent<HddMetrics>>(responseStream).Result!;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _logger.LogError(ex.Message);
-    //    }
-    //    return null!;
-    //}
-
-    //public ResponseFromAgent<DotNetMetrics> GetDonNetMetrics(RequestToAgent request)
-    //{
-    //    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
-    //    try
-    //    {
-    //        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
-    //        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
-    //        {
-    //            return JsonSerializer.DeserializeAsync<ResponseFromAgent<DotNetMetrics>>(responseStream).Result!;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _logger.LogError(ex.Message);
-    //    }
-    //    return null!;
-    //}
-
-    //public ResponseFromAgent<CpuMetric> GetCpuMetrics(RequestToAgent request)
-    //{
-    //    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
-    //    try
-    //    {
-    //        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
-    //        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
-    //        {
-    //            return JsonSerializer.DeserializeAsync<ResponseFromAgent<CpuMetric>>(responseStream).Result!;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _logger.LogError(ex.Message);
-    //    }
-    //    return null!;
-    //}
-
-    //public ResponseFromAgent<NetworkMetrics> GetNetworkMetrics(RequestToAgent request)
-    //{
-    //    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
-    //    try
-    //    {
-    //        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
-    //        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
-    //        {
-    //            return JsonSerializer.DeserializeAsync<ResponseFromAgent<NetworkMetrics>>(responseStream).Result!;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _logger.LogError(ex.Message);
-    //    }
-    //    return null!;
-    //}
 }
+//public ResponseFromAgent<RamMetrics> GetRamMetrics(RequestToAgent request)
+//{
+//    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
+//    try
+//    {
+//        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
+//        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
+//        {
+//            return JsonSerializer.DeserializeAsync<ResponseFromAgent<RamMetrics>>(responseStream).Result!;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        _logger.LogError(ex.Message);
+//    }
+//    return null!;
+//}
+
+//public ResponseFromAgent<HddMetrics> GetHddMetrics(RequestToAgent request)
+//{
+//    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
+//    try
+//    {
+//        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
+//        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
+//        {
+//            return JsonSerializer.DeserializeAsync<ResponseFromAgent<HddMetrics>>(responseStream).Result!;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        _logger.LogError(ex.Message);
+//    }
+//    return null!;
+//}
+
+//public ResponseFromAgent<DotNetMetrics> GetDonNetMetrics(RequestToAgent request)
+//{
+//    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
+//    try
+//    {
+//        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
+//        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
+//        {
+//            return JsonSerializer.DeserializeAsync<ResponseFromAgent<DotNetMetrics>>(responseStream).Result!;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        _logger.LogError(ex.Message);
+//    }
+//    return null!;
+//}
+
+//public ResponseFromAgent<CpuMetric> GetCpuMetrics(RequestToAgent request)
+//{
+//    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
+//    try
+//    {
+//        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
+//        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
+//        {
+//            return JsonSerializer.DeserializeAsync<ResponseFromAgent<CpuMetric>>(responseStream).Result!;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        _logger.LogError(ex.Message);
+//    }
+//    return null!;
+//}
+
+//public ResponseFromAgent<NetworkMetrics> GetNetworkMetrics(RequestToAgent request)
+//{
+//    var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{request.BaseAdress}/api/{request.ApiRoute}/from/{request.From}/to/{request.To}");
+//    try
+//    {
+//        HttpResponseMessage response = _httpClient.SendAsync(httpRequest).Result;
+//        using (var responseStream = response.Content.ReadAsStreamAsync().Result)
+//        {
+//            return JsonSerializer.DeserializeAsync<ResponseFromAgent<NetworkMetrics>>(responseStream).Result!;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        _logger.LogError(ex.Message);
+//    }
+//    return null!;
+//}

@@ -35,6 +35,8 @@ try
                             .ScanIn(typeof(Program).Assembly).For.Migrations())
                         .AddLogging(lb => lb.AddFluentMigratorConsole());
 
+    // не забыть добавить методы для SELECT * FROM table ORDER BY column DESC LIMIT 1;
+
     builder.Services.AddSingleton<AgentsRepository>();
     builder.Services.AddSingleton<ICPUMetricsRepository, CPUMetricsRepository>();
     builder.Services.AddSingleton<IHddMetricsRepository, HDDMetricsRepository>();
