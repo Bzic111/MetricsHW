@@ -44,8 +44,7 @@ public partial class MainWindow : Window
 
     private void UserControl2_MouseMove(object sender, MouseEventArgs e)
     {
-        Bars.Mask_MouseMove(sender, e);
-        
+        Bars.Mask_MouseMove(sender, e);        
     }
 }
 
