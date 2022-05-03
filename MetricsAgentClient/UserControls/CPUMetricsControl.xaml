@@ -23,7 +23,22 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
         </Grid>
-        <Rectangle Height="200" Width="300" Fill="Black" Panel.ZIndex="0"/>
+        <Rectangle Height="200" Width="300" Panel.ZIndex="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Pad">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF13123C"/>
+                    <GradientStop Color="#FF145612" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <Rectangle x:Name="Mask" Panel.ZIndex="5" Height="200" Width="300" MouseMove="Mask_MouseMove" MouseLeftButtonDown="Mask_MouseLeftButtonDown" />
         <Canvas x:Name="MyCanvas" Width="260" HorizontalAlignment="Right" Height="200" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="2">
             <Canvas Panel.ZIndex="3" Height="20" Width="40" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="-40">
@@ -31,17 +46,17 @@
                 <Label x:Name="CursorLabel" Content="95 %" Margin="0,0,0,0" HorizontalAlignment="Center" Canvas.Left="0" Width="40" Height="20" FontSize="10" FontFamily="Arial" FontWeight="Bold"/>
                 <Line x:Name="CursorLine" Y1="10" Y2="10" X1="40" X2="260" Fill="Gray" Stroke="Gray" StrokeThickness="1" Height="200" Width="300"></Line>
             </Canvas>
-            <Rectangle x:Name="Bar0" Fill="Blue" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="10"  Margin="0,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar1" Fill="Blue" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"  Margin="22,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar2" Fill="DarkGreen" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50"  Margin="44,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar3" Fill="DarkGreen" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="70"  Margin="66,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar4" Fill="YellowGreen" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="90"  Margin="88,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar5" Fill="GreenYellow" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="110"  Margin="110,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar6" Fill="Yellow" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="130"  Margin="132,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar7" Fill="OrangeRed" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="150"  Margin="154,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar8" Fill="DarkRed" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="170"  Margin="176,0,0,0" Stroke="Black" Width="20"/>
-            <Rectangle x:Name="Bar9" Fill="Red" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="190"  Margin="198,0,0,0" Stroke="Black" Width="20"/>
-            <Line Visibility="Visible" Stroke="Red"  Height="200" Panel.ZIndex="3" VerticalAlignment="Bottom" StrokeThickness="1" X1="0" X2="260" Y1="20" Y2="20"></Line>
+            <Rectangle x:Name="Bar0" Fill="Blue" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="10"  Margin="0,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar1" Fill="Blue" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30"  Margin="22,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar2" Fill="DarkGreen" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50"  Margin="44,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar3" Fill="DarkGreen" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="70"  Margin="66,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar4" Fill="YellowGreen" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="90"  Margin="88,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar5" Fill="GreenYellow" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="110"  Margin="110,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar6" Fill="Yellow" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="130"  Margin="132,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar7" Fill="OrangeRed" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="150"  Margin="154,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar8" Fill="DarkRed" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="170"  Margin="176,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Rectangle x:Name="Bar9" Fill="Red" Canvas.Bottom="0" Panel.ZIndex="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="190"  Margin="198,0,0,0" Stroke="Black" Width="20" RadiusX="3" RadiusY="3"/>
+            <Line Visibility="Visible" Stroke="Red"  Height="200" Panel.ZIndex="3" VerticalAlignment="Bottom" StrokeThickness="1" X1="0" X2="260" Y1="20" Y2="20" StrokeEndLineCap="Flat"></Line>
             <Line Visibility="Visible" Stroke="Red"  Height="200" Panel.ZIndex="3" VerticalAlignment="Bottom" StrokeThickness="1" X1="0" X2="260" Y1="40" Y2="40"></Line>
             <Line Visibility="Visible" Stroke="Red"  Height="200" Panel.ZIndex="3" VerticalAlignment="Bottom" StrokeThickness="1" X1="0" X2="260" Y1="60" Y2="60"></Line>
             <Line Visibility="Visible" Stroke="Yellow"  Height="200" Panel.ZIndex="3" VerticalAlignment="Bottom" StrokeThickness="1" X1="0" X2="260" Y1="80" Y2="80"></Line>
