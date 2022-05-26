@@ -47,8 +47,8 @@ try
     builder.Services.AddSingleton<CpuMetricJob>();
     builder.Services.AddSingleton<HddMetricJob>();
     builder.Services.AddSingleton<RamMetricJob>();
-    builder.Services.AddSingleton<DotNetMetricJob>();
     builder.Services.AddSingleton<NetworkMetricJob>();
+    //builder.Services.AddSingleton<DotNetMetricJob>();
 
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(CpuMetricJob),
                                                   cronExpression: "0/5 * * * * ?")); // Запускать каждые 5 секунд
@@ -58,8 +58,8 @@ try
                                                   cronExpression: "2/7 * * * * ?"));
     builder.Services.AddSingleton(new JobSchedule(jobType: typeof(HddMetricJob),
                                                   cronExpression: "3/8 * * * * ?"));
-    builder.Services.AddSingleton(new JobSchedule(jobType: typeof(DotNetMetricJob),
-                                                  cronExpression: "4/9 * * * * ?"));
+    //builder.Services.AddSingleton(new JobSchedule(jobType: typeof(DotNetMetricJob),
+    //                                              cronExpression: "4/9 * * * * ?"));
 
     builder.Services.AddSingleton(mapper);
 

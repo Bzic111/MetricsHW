@@ -26,4 +26,5 @@ public class DotNetMetricJob : IJob
         });
         return Task.CompletedTask;
     }
+
 }

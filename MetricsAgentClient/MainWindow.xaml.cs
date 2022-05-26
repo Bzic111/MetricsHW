@@ -19,9 +19,9 @@ public partial class MainWindow : Window
     {
         Bars.StartDispatcher();
         Ram.StartDispatcher();
-        DotNet.StartDispatcher();
         Network.StartDispatcher();
         Hdd.StartDispatcher();
+        //DotNet.StartDispatcher();
     }
 
     private void UserControl2_MouseMove(object sender, MouseEventArgs e)

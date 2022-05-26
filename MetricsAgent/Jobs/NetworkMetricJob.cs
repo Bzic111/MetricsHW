@@ -12,7 +12,7 @@ public class NetworkMetricJob : IJob
     public NetworkMetricJob(INetworkMetricsRepository repository)
     {
         _repository = repository;
-        _performanceCounter = new PerformanceCounter("Сетевой адаптер", "Всего байт/с", "Realtek PCIe FE Family Controller");
+        _performanceCounter = new PerformanceCounter("Сетевой адаптер", "Всего байт/с", "Realtek PCIe GbE Family Controller");
 
     }
     public Task Execute(IJobExecutionContext context)
